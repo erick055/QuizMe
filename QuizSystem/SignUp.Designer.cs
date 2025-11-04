@@ -36,9 +36,9 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
+            txtConfirmPassword = new TextBox();
             button1 = new Button();
             label5 = new Label();
             label6 = new Label();
@@ -90,9 +90,9 @@
             label2.Font = new Font("Calibri", 12F);
             label2.Location = new Point(702, 268);
             label2.Name = "label2";
-            label2.Size = new Size(45, 19);
+            label2.Size = new Size(75, 19);
             label2.TabIndex = 2;
-            label2.Text = "Email";
+            label2.Text = "Username";
             // 
             // label3
             // 
@@ -115,29 +115,29 @@
             label4.TabIndex = 4;
             label4.Text = "Confirm password";
             // 
-            // textBox1
+            // txtUsername
             // 
-            textBox1.Location = new Point(706, 290);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(236, 40);
-            textBox1.TabIndex = 5;
+            txtUsername.Location = new Point(706, 290);
+            txtUsername.Multiline = true;
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(236, 40);
+            txtUsername.TabIndex = 5;
             // 
-            // textBox2
+            // txtPassword
             // 
-            textBox2.Location = new Point(704, 380);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(236, 40);
-            textBox2.TabIndex = 6;
+            txtPassword.Location = new Point(704, 380);
+            txtPassword.Multiline = true;
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(236, 40);
+            txtPassword.TabIndex = 6;
             // 
-            // textBox3
+            // txtConfirmPassword
             // 
-            textBox3.Location = new Point(702, 457);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(236, 40);
-            textBox3.TabIndex = 7;
+            txtConfirmPassword.Location = new Point(702, 457);
+            txtConfirmPassword.Multiline = true;
+            txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.Size = new Size(236, 40);
+            txtConfirmPassword.TabIndex = 7;
             // 
             // button1
             // 
@@ -151,6 +151,7 @@
             button1.TabIndex = 8;
             button1.Text = "Submit";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // label5
             // 
@@ -194,9 +195,9 @@
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(button1);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtConfirmPassword);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUsername);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -220,9 +221,9 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox txtUsername;
+        private TextBox txtPassword;
+        private TextBox txtConfirmPassword;
         private Button button1;
         private Label label5;
         private Label label6;

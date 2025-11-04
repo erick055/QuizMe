@@ -37,8 +37,8 @@
             pictureBox3 = new PictureBox();
             label7 = new Label();
             label4 = new Label();
-            txtEmailAdd = new TextBox();
-            txtPass = new TextBox();
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
             btnLogin = new Button();
             label5 = new Label();
             label8 = new Label();
@@ -116,9 +116,9 @@
             label7.Font = new Font("Segoe UI", 10F);
             label7.Location = new Point(703, 273);
             label7.Name = "label7";
-            label7.Size = new Size(94, 19);
+            label7.Size = new Size(71, 19);
             label7.TabIndex = 19;
-            label7.Text = "Email Address";
+            label7.Text = "Username";
             // 
             // label4
             // 
@@ -129,21 +129,21 @@
             label4.TabIndex = 20;
             label4.Text = "Password";
             // 
-            // txtEmailAdd
+            // txtUsername
             // 
-            txtEmailAdd.Location = new Point(704, 307);
-            txtEmailAdd.Multiline = true;
-            txtEmailAdd.Name = "txtEmailAdd";
-            txtEmailAdd.Size = new Size(191, 39);
-            txtEmailAdd.TabIndex = 21;
+            txtUsername.Location = new Point(704, 307);
+            txtUsername.Multiline = true;
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(191, 39);
+            txtUsername.TabIndex = 21;
             // 
-            // txtPass
+            // txtPassword
             // 
-            txtPass.Location = new Point(704, 413);
-            txtPass.Multiline = true;
-            txtPass.Name = "txtPass";
-            txtPass.Size = new Size(191, 37);
-            txtPass.TabIndex = 22;
+            txtPassword.Location = new Point(704, 413);
+            txtPassword.Multiline = true;
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(191, 37);
+            txtPassword.TabIndex = 22;
             // 
             // btnLogin
             // 
@@ -186,6 +186,7 @@
             label9.Size = new Size(48, 15);
             label9.TabIndex = 37;
             label9.Text = "Sign up";
+            label9.Click += label9_Click;
             // 
             // SignIn
             // 
@@ -196,8 +197,8 @@
             Controls.Add(label8);
             Controls.Add(label5);
             Controls.Add(btnLogin);
-            Controls.Add(txtPass);
-            Controls.Add(txtEmailAdd);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUsername);
             Controls.Add(label4);
             Controls.Add(label7);
             Controls.Add(pictureBox3);
@@ -223,8 +224,8 @@
         private PictureBox pictureBox3;
         private Label label7;
         private Label label4;
-        private TextBox txtEmailAdd;
-        private TextBox txtPass;
+        private TextBox txtUsername;
+        private TextBox txtPassword;
         private Button btnLogin;
         private Label label5;
         private Button button1;
