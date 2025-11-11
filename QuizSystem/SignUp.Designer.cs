@@ -1,4 +1,4 @@
-﻿namespace LandingPage01
+﻿namespace QuizMe_
 {
     partial class SignUp
     {
@@ -30,18 +30,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignUp));
             panel1 = new Panel();
-            panel2 = new Panel();
             pictureBox1 = new PictureBox();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
+            Smallsteps = new Label();
+            learning = new Label();
+            Make = new Label();
+            button1 = new Button();
+            Sign = new Label();
+            lblUsername = new Label();
+            CreatePass = new Label();
+            ConfirmPass = new Label();
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             txtConfirmPassword = new TextBox();
-            button1 = new Button();
-            label5 = new Label();
-            label6 = new Label();
+            btnLogin = new Button();
+            label1 = new Label();
+            btnSignup = new Label();
             pictureBox2 = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -50,162 +53,206 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(panel2);
+            panel1.BackColor = SystemColors.Highlight;
             panel1.Controls.Add(pictureBox1);
-            panel1.Location = new Point(0, 0);
+            panel1.Controls.Add(Smallsteps);
+            panel1.Controls.Add(learning);
+            panel1.Controls.Add(Make);
+            panel1.Location = new Point(1, 3);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(602, 794);
+            panel1.Size = new Size(694, 1136);
             panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            panel2.Location = new Point(602, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(574, 794);
-            panel2.TabIndex = 1;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Location = new Point(166, 456);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(602, 794);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
+            pictureBox1.Size = new Size(528, 585);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
+            // 
+            // Smallsteps
+            // 
+            Smallsteps.AutoSize = true;
+            Smallsteps.Font = new Font("Microsoft Sans Serif", 15F);
+            Smallsteps.ForeColor = SystemColors.ButtonHighlight;
+            Smallsteps.Location = new Point(51, 239);
+            Smallsteps.Name = "Smallsteps";
+            Smallsteps.Size = new Size(431, 29);
+            Smallsteps.TabIndex = 2;
+            Smallsteps.Text = "Small Steps today, big win tomorrow!";
+            // 
+            // learning
+            // 
+            learning.AutoSize = true;
+            learning.Font = new Font("Segoe UI", 40F, FontStyle.Bold);
+            learning.Location = new Point(39, 143);
+            learning.Name = "learning";
+            learning.Size = new Size(551, 89);
+            learning.TabIndex = 1;
+            learning.Text = "LEARNING FUN!";
+            // 
+            // Make
+            // 
+            Make.AutoSize = true;
+            Make.Font = new Font("Segoe UI", 40F, FontStyle.Bold);
+            Make.Location = new Point(39, 47);
+            Make.Name = "Make";
+            Make.Size = new Size(228, 89);
+            Make.TabIndex = 0;
+            Make.Text = "MAKE";
+            // 
+            // button1
+            // 
+            button1.FlatStyle = FlatStyle.Popup;
+            button1.Font = new Font("Segoe UI", 15F);
+            button1.Location = new Point(729, 28);
+            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Name = "button1";
+            button1.Size = new Size(61, 65);
+            button1.TabIndex = 1;
+            button1.Text = "<";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // Sign
+            // 
+            Sign.AutoSize = true;
+            Sign.Font = new Font("Segoe UI", 15F);
+            Sign.Location = new Point(763, 167);
+            Sign.Name = "Sign";
+            Sign.Size = new Size(109, 35);
+            Sign.TabIndex = 2;
+            Sign.Text = "SIGN UP";
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.Font = new Font("Segoe UI", 10F);
+            lblUsername.Location = new Point(763, 243);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(87, 23);
+            lblUsername.TabIndex = 3;
+            lblUsername.Text = "Username";
+            // 
+            // CreatePass
+            // 
+            CreatePass.AutoSize = true;
+            CreatePass.Font = new Font("Segoe UI", 10F);
+            CreatePass.Location = new Point(763, 347);
+            CreatePass.Name = "CreatePass";
+            CreatePass.Size = new Size(150, 23);
+            CreatePass.TabIndex = 4;
+            CreatePass.Text = "Create a password";
+            // 
+            // ConfirmPass
+            // 
+            ConfirmPass.AutoSize = true;
+            ConfirmPass.Font = new Font("Segoe UI", 10F);
+            ConfirmPass.Location = new Point(763, 451);
+            ConfirmPass.Name = "ConfirmPass";
+            ConfirmPass.Size = new Size(146, 23);
+            ConfirmPass.TabIndex = 5;
+            ConfirmPass.Text = "Confirm Password";
+            // 
+            // txtUsername
+            // 
+            txtUsername.Font = new Font("Segoe UI", 10F);
+            txtUsername.Location = new Point(774, 273);
+            txtUsername.Margin = new Padding(3, 4, 3, 4);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(348, 30);
+            txtUsername.TabIndex = 6;
+            // 
+            // txtPassword
+            // 
+            txtPassword.Font = new Font("Segoe UI", 10F);
+            txtPassword.Location = new Point(774, 376);
+            txtPassword.Margin = new Padding(3, 4, 3, 4);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(348, 30);
+            txtPassword.TabIndex = 7;
+            // 
+            // txtConfirmPassword
+            // 
+            txtConfirmPassword.Font = new Font("Segoe UI", 10F);
+            txtConfirmPassword.Location = new Point(774, 492);
+            txtConfirmPassword.Margin = new Padding(3, 4, 3, 4);
+            txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.Size = new Size(348, 30);
+            txtConfirmPassword.TabIndex = 8;
+            // 
+            // btnLogin
+            // 
+            btnLogin.BackColor = SystemColors.ActiveCaptionText;
+            btnLogin.FlatStyle = FlatStyle.Popup;
+            btnLogin.ForeColor = SystemColors.ButtonFace;
+            btnLogin.Location = new Point(763, 697);
+            btnLogin.Margin = new Padding(3, 4, 3, 4);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(457, 57);
+            btnLogin.TabIndex = 9;
+            btnLogin.Text = "Register";
+            btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Tahoma", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(702, 221);
+            label1.Location = new Point(843, 893);
             label1.Name = "label1";
-            label1.Size = new Size(89, 25);
-            label1.TabIndex = 1;
-            label1.Text = "Sign up";
+            label1.Size = new Size(178, 20);
+            label1.TabIndex = 10;
+            label1.Text = "Already have an account?";
             // 
-            // label2
+            // btnSignup
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Calibri", 12F);
-            label2.Location = new Point(702, 268);
-            label2.Name = "label2";
-            label2.Size = new Size(75, 19);
-            label2.TabIndex = 2;
-            label2.Text = "Username";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Calibri", 12F);
-            label3.Location = new Point(702, 353);
-            label3.Name = "label3";
-            label3.Size = new Size(130, 19);
-            label3.TabIndex = 3;
-            label3.Text = "Create a password";
-            label3.Click += label3_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(702, 435);
-            label4.Name = "label4";
-            label4.Size = new Size(125, 19);
-            label4.TabIndex = 4;
-            label4.Text = "Confirm password";
-            // 
-            // txtUsername
-            // 
-            txtUsername.Location = new Point(706, 290);
-            txtUsername.Multiline = true;
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(236, 40);
-            txtUsername.TabIndex = 5;
-            // 
-            // txtPassword
-            // 
-            txtPassword.Location = new Point(704, 380);
-            txtPassword.Multiline = true;
-            txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(236, 40);
-            txtPassword.TabIndex = 6;
-            // 
-            // txtConfirmPassword
-            // 
-            txtConfirmPassword.Location = new Point(702, 457);
-            txtConfirmPassword.Multiline = true;
-            txtConfirmPassword.Name = "txtConfirmPassword";
-            txtConfirmPassword.Size = new Size(236, 40);
-            txtConfirmPassword.TabIndex = 7;
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.ActiveCaptionText;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Calibri", 12F);
-            button1.ForeColor = SystemColors.ControlLightLight;
-            button1.Location = new Point(702, 542);
-            button1.Name = "button1";
-            button1.Size = new Size(362, 61);
-            button1.TabIndex = 8;
-            button1.Text = "Submit";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Calibri", 12F);
-            label5.Location = new Point(779, 644);
-            label5.Name = "label5";
-            label5.Size = new Size(179, 19);
-            label5.TabIndex = 9;
-            label5.Text = "Already have an account? ";
-            label5.Click += label5_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(944, 644);
-            label6.Name = "label6";
-            label6.Size = new Size(46, 19);
-            label6.TabIndex = 10;
-            label6.Text = "Login";
-            label6.Click += label6_Click;
+            btnSignup.AutoSize = true;
+            btnSignup.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnSignup.Location = new Point(1013, 893);
+            btnSignup.Name = "btnSignup";
+            btnSignup.Size = new Size(56, 20);
+            btnSignup.TabIndex = 11;
+            btnSignup.Text = "Sign in";
+            btnSignup.Click += btnSignup_Click;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1052, 33);
+            pictureBox2.Location = new Point(1255, 16);
+            pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(45, 42);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 11;
+            pictureBox2.Size = new Size(74, 77);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 12;
             pictureBox2.TabStop = false;
             // 
             // SignUp
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(1175, 794);
+            ClientSize = new Size(1353, 1135);
             Controls.Add(pictureBox2);
-            Controls.Add(label6);
-            Controls.Add(label5);
+            Controls.Add(btnSignup);
+            Controls.Add(label1);
+            Controls.Add(btnLogin);
             Controls.Add(button1);
             Controls.Add(txtConfirmPassword);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(ConfirmPass);
+            Controls.Add(CreatePass);
+            Controls.Add(lblUsername);
+            Controls.Add(Sign);
             Controls.Add(panel1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "SignUp";
             Text = "SignUp";
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
@@ -215,18 +262,21 @@
         #endregion
 
         private Panel panel1;
-        private Panel panel2;
-        private PictureBox pictureBox1;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
+        private Label learning;
+        private Label Make;
+        private Label Smallsteps;
+        private Button button1;
+        private Label Sign;
+        private Label lblUsername;
+        private Label CreatePass;
+        private Label ConfirmPass;
         private TextBox txtUsername;
         private TextBox txtPassword;
         private TextBox txtConfirmPassword;
-        private Button button1;
-        private Label label5;
-        private Label label6;
+        private Button btnLogin;
+        private Label label1;
+        private PictureBox pictureBox1;
+        private Label btnSignup;
         private PictureBox pictureBox2;
     }
 }
