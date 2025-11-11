@@ -1,18 +1,33 @@
 namespace QuizMe_
 {
-    public partial class Form1 : Form
+    public partial class LandingPage : Form
     {
-        public Form1()
+        public LandingPage()
         {
             InitializeComponent();
         }
 
-        // Add this method to fix CS0103 if the designer file is missing
-        private void InitializeComponent()
+        private void label4_Click(object sender, EventArgs e)
         {
-            // Designer-generated code should be here.
-            // If you have a .Designer.cs file for Form1, ensure it is present and properly linked.
-            // Otherwise, this placeholder prevents the CS0103 error.
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            SignIn signin = new SignIn();
+            this.Hide();
+
+            signin.Show();
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SignUp signUp = new SignUp();
+            this.Hide();
+
+            signUp.Show();
         }
     }
 }

@@ -1,6 +1,4 @@
-using QuizMe_;
-
-namespace FinalProject
+namespace QuizMe_
 {
     internal static class Program
     {
@@ -13,7 +11,7 @@ namespace FinalProject
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new SignIn());
+            Application.Run(new LandingPage());
         }
     }
 }

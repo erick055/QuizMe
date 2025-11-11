@@ -1,73 +1,61 @@
-﻿using LandingPage01;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using System.Data.SqlClient; // Added this
 
 namespace QuizMe_
 {
     public partial class SignIn : Form
     {
-        private string usersFilePath = "users.txt";
+        // Connection string (must be the same as in SignUp)
+        private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
+
         public SignIn()
         {
             InitializeComponent();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text; // Assuming your textbox is txtUsername
-            string password = txtPassword.Text; // Assuming your textbox is txtPassword
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
 
-            // 1. Basic Validation
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Please enter both username and password.");
                 return;
             }
 
-            // 2. Check if user and password match
+            // --- Database Logic ---
             try
             {
-                if (!File.Exists(usersFilePath))
+                string storedHash = null;
+
+                // 1. Create connection and command
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    MessageBox.Show("No users have signed up yet.");
-                    return;
-                }
-
-                var lines = File.ReadAllLines(usersFilePath);
-                bool loggedIn = false;
-
-                foreach (var line in lines)
-                {
-                    // Split the line into parts. Format is username:password:email:fullname
-                    var parts = line.Split(':');
-
-                    // Check if the username (parts[0]) and password (parts[1]) match
-                    if (parts.Length >= 2 && parts[0] == username && parts[1] == password)
+                    con.Open();
+                    string query = "SELECT PasswordHash FROM Users WHERE Username = @Username";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        loggedIn = true;
-                        break; // Stop searching
+                        // 2. Add parameter
+                        cmd.Parameters.AddWithValue("@Username", username);
+
+                        // 3. Execute and get the stored hash
+                        var result = cmd.ExecuteScalar(); // Gets the first column of the first row
+                        if (result != null)
+                        {
+                            storedHash = result.ToString();
+                        }
                     }
                 }
 
-                // 3. Handle login result
-                if (loggedIn)
+                // 4. Verify login
+                if (storedHash != null && PasswordHelper.VerifyPassword(password, storedHash))
                 {
                     // SUCCESS: Open the landing page
-                    LandingPage landingPage = new LandingPage();
-                    landingPage.Show();
-                    this.Hide(); // Hide the login form
+                    Dashboard2 dashboard = new Dashboard2();
+                    dashboard.Show();
+                    this.Hide();
                 }
                 else
                 {
@@ -89,4 +77,3 @@ namespace QuizMe_
         }
     }
 }
-

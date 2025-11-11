@@ -1,49 +1,28 @@
-﻿using QuizMe_;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using System.Data.SqlClient; 
 
-namespace LandingPage01
+namespace QuizMe_
 {
     public partial class SignUp : Form
     {
-        private string usersFilePath = "users.txt";
+        // Connection string to your database
+        private string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
+
         public SignUp()
         {
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e) // Note: Your button seems to be named btnLogin
         {
             string username = txtUsername.Text;
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(password) ||
-                string.IsNullOrWhiteSpace(confirmPassword))
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
             {
-                MessageBox.Show("Please enter both username and password.");
+                MessageBox.Show("Please fill in all fields.");
                 return;
             }
 
@@ -52,41 +31,58 @@ namespace LandingPage01
                 MessageBox.Show("Passwords do not match. Please re-enter.");
                 return;
             }
+
+            // --- Database Logic ---
             try
             {
-                if (!File.Exists(usersFilePath))
-                {
-                    File.Create(usersFilePath).Close();
-                }
+                // 1. Hash the password
+                string passwordHash = PasswordHelper.HashPassword(password);
 
-                var lines = File.ReadAllLines(usersFilePath);
-
-               
-                
-                if (lines.Any(line => line.Split(':')[0] == username))
+                // 2. Create SQL connection and command
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    MessageBox.Show("This username is already taken. Please choose another.");
-                    return;
-                }
+                    con.Open();
+                    string query = "INSERT INTO Users (Username, PasswordHash) VALUES (@Username, @PasswordHash)";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        // 3. Add parameters to prevent SQL injection
+                        cmd.Parameters.AddWithValue("@Username", username);
+                        cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
 
-                
-                using (StreamWriter sw = File.AppendText(usersFilePath))
-                {
-                    sw.WriteLine($"{username}:{password}");
+                        // 4. Execute the command
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
                 MessageBox.Show("Sign up successful! You can now log in.");
 
-                
                 SignIn signInForm = new SignIn();
                 signInForm.Show();
                 this.Hide();
+            }
+            catch (SqlException ex)
+            {
+                // Handle errors, like a duplicate username
+                if (ex.Number == 2627 || ex.Number == 2601) // Unique constraint violation
+                {
+                    MessageBox.Show("This username is already taken. Please choose another.");
+                }
+                else
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
         }
+
+        private void btnSignup_Click(object sender, EventArgs e)
+        {
+            SignIn signin = new SignIn();
+            this.Hide();
+            signin.Show();
+        }
     }
 }
-
