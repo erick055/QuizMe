@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             lbDays = new Label();
+            lblTime = new Label();
+            lblIdentifier = new Label();
             SuspendLayout();
             // 
             // lbDays
@@ -41,10 +43,34 @@
             lbDays.TabIndex = 0;
             lbDays.Text = "00";
             // 
+            // lblTime
+            // 
+            lblTime.AutoSize = true;
+            lblTime.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTime.ForeColor = Color.Red;
+            lblTime.Location = new Point(3, 18);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(0, 13);
+            lblTime.TabIndex = 1;
+            lblTime.Visible = false;
+            // 
+            // lblIdentifier
+            // 
+            lblIdentifier.AutoSize = true;
+            lblIdentifier.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIdentifier.ForeColor = Color.Red;
+            lblIdentifier.Location = new Point(54, 18);
+            lblIdentifier.Name = "lblIdentifier";
+            lblIdentifier.Size = new Size(0, 13);
+            lblIdentifier.TabIndex = 2;
+            lblIdentifier.Visible = false;
+            // 
             // UserControlDays
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(lblIdentifier);
+            Controls.Add(lblTime);
             Controls.Add(lbDays);
             Name = "UserControlDays";
             Size = new Size(117, 95);
@@ -56,5 +82,7 @@
         #endregion
 
         private Label lbDays;
+        private Label lblTime;
+        private Label lblIdentifier;
     }
 }

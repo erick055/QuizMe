@@ -1331,6 +1331,7 @@
             ForeColor = Color.Transparent;
             Name = "Dashboard2";
             Text = "Dashboard";
+            Load += Dashboard2_Load;
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox22).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();

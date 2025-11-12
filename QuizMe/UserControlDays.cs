@@ -24,6 +24,31 @@ namespace QuizMe_
         public void days(int nDay)
         {
             lbDays.Text = nDay + "";
+            ClearTime();
+            ClearIdentifier();
+        }
+        public void SetTime(string time)
+        {
+            lblTime.Text = time;
+            lblTime.Visible = true;
+        }
+
+        // --- ADD THIS NEW METHOD ---
+        public void ClearTime()
+        {
+            lblTime.Text = "";
+            lblTime.Visible = false;
+        }
+        public void SetIdentifier(string text)
+        {
+            lblIdentifier.Text = text;
+            lblIdentifier.Visible = true;
+        }
+
+        public void ClearIdentifier()
+        {
+            lblIdentifier.Text = "";
+            lblIdentifier.Visible = false;
         }
     }
 }

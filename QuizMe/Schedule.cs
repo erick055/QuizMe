@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace QuizMe_
 {
     public partial class Schedule : Form
     {
         int month, year;
+        SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;");
+
+        // --- MODIFIED ---
+        // This will store the Date and the *first* scheduled time for that date
+        Dictionary<DateTime, DateTime> scheduledDates = new Dictionary<DateTime, DateTime>();
+        // --- END OF MODIFICATION ---
+
         public Schedule()
         {
             InitializeComponent();
@@ -24,19 +26,71 @@ namespace QuizMe_
         {
             displayDays();
         }
+
+        // --- MODIFIED ---
+        // This query now gets the MIN(schedule_date) for each day
+        private void LoadScheduledDates(int year, int month)
+        {
+            scheduledDates.Clear();
+            try
+            {
+                con.Open();
+                // This query groups by the date and gets the earliest time for each day
+                string query = @"SELECT 
+                                     CAST(schedule_date AS DATE) as schedule_day, 
+                                     MIN(schedule_date) as first_schedule
+                                 FROM Flashcards 
+                                 WHERE user_id = @user_id 
+                                   AND YEAR(schedule_date) = @year 
+                                   AND MONTH(schedule_date) = @month
+                                 GROUP BY CAST(schedule_date AS DATE)";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@user_id", SignIn.staticUserID);
+                    cmd.Parameters.AddWithValue("@year", year);
+                    cmd.Parameters.AddWithValue("@month", month);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            DateTime day = Convert.ToDateTime(reader["schedule_day"]);
+                            DateTime firstTime = Convert.ToDateTime(reader["first_schedule"]);
+                            scheduledDates[day] = firstTime;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading schedule: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
+        // --- END OF MODIFICATION ---
+
         private void displayDays()
         {
+            flpDayContainer.Controls.Clear(); // <-- Moved this to the top
+
             DateTime now = DateTime.Now;
-            month = now.Month;
-            year = now.Year;
+            if (month == 0) month = now.Month;
+            if (year == 0) year = now.Year;
+
+            LoadScheduledDates(year, month);
 
             String monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
             lbDate.Text = monthName + " " + year;
 
             DateTime StartOfTheMonth = new DateTime(year, month, 1);
-
             int days = DateTime.DaysInMonth(year, month);
-
             int daysofWeek = Convert.ToInt32(StartOfTheMonth.DayOfWeek.ToString("d")) + 1;
 
             for (int i = 1; i < daysofWeek; i++)
@@ -44,76 +98,75 @@ namespace QuizMe_
                 UserControlBlank ucBlank = new UserControlBlank();
                 flpDayContainer.Controls.Add(ucBlank);
             }
+
             for (int i = 1; i <= days; i++)
             {
                 UserControlDays ucDays = new UserControlDays();
                 ucDays.days(i);
+
+                DateTime currentDay = new DateTime(year, month, i);
+                ucDays.Tag = currentDay;
+
+                // Check if this day is in our dictionary
+                if (scheduledDates.ContainsKey(currentDay.Date))
+                {
+                    // Get the time
+                    DateTime firstTime = scheduledDates[currentDay.Date];
+
+                    // Set the time on the user control
+                    ucDays.SetTime(firstTime.ToString("hh:mm tt"));
+
+                    // --- THIS IS THE NEW LINE ---
+                    ucDays.SetIdentifier("Flashcard"); // Set the "Flashcard" label
+                                                       // --- END OF NEW LINE ---
+
+                    // Mark the day
+                    ucDays.BackColor = Color.LightBlue;
+                }
+
+                ucDays.Click += UcDays_Click;
                 flpDayContainer.Controls.Add(ucDays);
             }
         }
+
+        private void UcDays_Click(object sender, EventArgs e)
+        {
+            UserControlDays ucDay = (UserControlDays)sender;
+            DateTime clickedDate = (DateTime)ucDay.Tag;
+            Flashcards viewDayCards = new Flashcards(clickedDate);
+            viewDayCards.ShowDialog();
+        }
+
         private void btnNext_Click(object sender, EventArgs e)
         {
-            flpDayContainer.Controls.Clear();
-
             if (month == 12)
             {
-                month = 0;
+                month = 1;
                 year++;
             }
-            month++; ;
-            String monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-            lbDate.Text = monthName + " " + year;
-            DateTime StartOfTheMonth = new DateTime(year, month, 1);
-
-            int days = DateTime.DaysInMonth(year, month);
-
-            int daysofWeek = Convert.ToInt32(StartOfTheMonth.DayOfWeek.ToString("d")) + 1;
-
-            for (int i = 1; i < daysofWeek; i++)
+            else
             {
-                UserControlBlank ucBlank = new UserControlBlank();
-                flpDayContainer.Controls.Add(ucBlank);
+                month++;
             }
-            for (int i = 1; i <= days; i++)
-            {
-                UserControlDays ucDays = new UserControlDays();
-                ucDays.days(i);
-                flpDayContainer.Controls.Add(ucDays);
-            }
+            displayDays();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            flpDayContainer.Controls.Clear();
-
             if (month == 1)
             {
-                month = 13;
+                month = 12;
                 year--;
             }
-            month--;
-            String monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-            lbDate.Text = monthName + " " + year;
-            DateTime StartOfTheMonth = new DateTime(year, month, 1);
-
-            int days = DateTime.DaysInMonth(year, month);
-
-            int daysofWeek = Convert.ToInt32(StartOfTheMonth.DayOfWeek.ToString("d")) + 1;
-
-            for (int i = 1; i < daysofWeek; i++)
+            else
             {
-                UserControlBlank ucBlank = new UserControlBlank();
-                flpDayContainer.Controls.Add(ucBlank);
+                month--;
             }
-            for (int i = 1; i <= days; i++)
-            {
-                UserControlDays ucDays = new UserControlDays();
-                ucDays.days(i);
-                flpDayContainer.Controls.Add(ucDays);
-            }
+            displayDays();
         }
 
-       
+        // --- (All your other navigation buttons remain the same) ---
+        // ... (button7_Click, btnProg_Click, etc.) ...
 
         private void button7_Click(object sender, EventArgs e)
         {
@@ -126,7 +179,6 @@ namespace QuizMe_
         {
             Progress progress = new Progress();
             this.Hide();
-
             progress.Show();
         }
 
@@ -139,7 +191,6 @@ namespace QuizMe_
         {
             Quizzes quizzes = new Quizzes();
             this.Hide();
-
             quizzes.Show();
         }
 
@@ -147,7 +198,6 @@ namespace QuizMe_
         {
             Flashcards flashcards = new Flashcards();
             this.Hide();
-
             flashcards.Show();
         }
 
@@ -155,7 +205,6 @@ namespace QuizMe_
         {
             Dashboard2 dashboard = new Dashboard2();
             this.Hide();
-
             dashboard.Show();
         }
     }

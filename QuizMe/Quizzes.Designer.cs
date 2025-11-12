@@ -111,6 +111,7 @@
             quizzesButton = new Button();
             flashcardsButton = new Button();
             dashboardButton = new Button();
+            createQuizzButton = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel2.SuspendLayout();
@@ -1024,12 +1025,22 @@
             dashboardButton.UseVisualStyleBackColor = true;
             dashboardButton.Click += dashboardButton_Click;
             // 
+            // createQuizzButton
+            // 
+            createQuizzButton.Location = new Point(1239, 61);
+            createQuizzButton.Name = "createQuizzButton";
+            createQuizzButton.Size = new Size(119, 23);
+            createQuizzButton.TabIndex = 30;
+            createQuizzButton.Text = "Create Quiz";
+            createQuizzButton.UseVisualStyleBackColor = true;
+            // 
             // Quizzes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(1415, 1061);
+            Controls.Add(createQuizzButton);
             Controls.Add(panel13);
             Controls.Add(panel12);
             Controls.Add(panel11);
@@ -1167,5 +1178,6 @@
         private Button quizzesButton;
         private Button flashcardsButton;
         private Button dashboardButton;
+        private Button createQuizzButton;
     }
 }
