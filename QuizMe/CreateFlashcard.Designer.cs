@@ -34,6 +34,8 @@
             txtAnswer = new TextBox();
             buttonSubmit = new Button();
             backBtn = new Button();
+            dtpScheduleDate = new DateTimePicker();
+            label3 = new Label();
             SuspendLayout();
             // 
             // txtQuestion
@@ -78,6 +80,7 @@
             buttonSubmit.TabIndex = 4;
             buttonSubmit.Text = "submit";
             buttonSubmit.UseVisualStyleBackColor = true;
+            buttonSubmit.Click += buttonSubmit_Click;
             // 
             // backBtn
             // 
@@ -89,11 +92,32 @@
             backBtn.UseVisualStyleBackColor = true;
             backBtn.Click += backBtn_Click;
             // 
+            // dtpScheduleDate
+            // 
+            dtpScheduleDate.CustomFormat = "MMMM dd, yyyy hh:mm tt";
+            dtpScheduleDate.Format = DateTimePickerFormat.Custom;
+            dtpScheduleDate.Location = new Point(77, 425);
+            dtpScheduleDate.Name = "dtpScheduleDate";
+            dtpScheduleDate.ShowUpDown = true;
+            dtpScheduleDate.Size = new Size(200, 23);
+            dtpScheduleDate.TabIndex = 6;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(78, 404);
+            label3.Name = "label3";
+            label3.Size = new Size(78, 15);
+            label3.TabIndex = 7;
+            label3.Text = "Schedule For:";
+            // 
             // CreateFlashcard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(362, 447);
+            ClientSize = new Size(362, 526);
+            Controls.Add(label3);
+            Controls.Add(dtpScheduleDate);
             Controls.Add(backBtn);
             Controls.Add(buttonSubmit);
             Controls.Add(label2);
@@ -114,5 +138,7 @@
         private TextBox txtAnswer;
         private Button buttonSubmit;
         private Button backBtn;
+        private DateTimePicker dtpScheduleDate;
+        private Label label3;
     }
 }

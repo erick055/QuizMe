@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Data.SqlClient; // Added this
+using System.Data.SqlClient;
 
-namespace QuizMe_
+namespace QuizMe_ // Your namespace from the file
 {
     public partial class SignIn : Form
     {
-        // Connection string (must be the same as in SignUp)
+        // Connection string from your file
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
+
+        // >>> ADDED THIS <<<
+        // Static variable to hold the logged-in user's ID
+        public static int staticUserID;
 
         public SignIn()
         {
@@ -25,35 +29,46 @@ namespace QuizMe_
                 return;
             }
 
-            // --- Database Logic ---
             try
             {
                 string storedHash = null;
+                int foundUserID = 0; // >>> ADDED THIS <<<
 
-                // 1. Create connection and command
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    string query = "SELECT PasswordHash FROM Users WHERE Username = @Username";
+                    // Query to get BOTH hash and UserId
+                    string query = "SELECT PasswordHash, UserId FROM Users WHERE Username = @Username";
+
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        // 2. Add parameter
                         cmd.Parameters.AddWithValue("@Username", username);
 
-                        // 3. Execute and get the stored hash
-                        var result = cmd.ExecuteScalar(); // Gets the first column of the first row
-                        if (result != null)
+                        // Use a DataReader to get both results
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            storedHash = result.ToString();
+                            if (reader.Read())
+                            {
+                                storedHash = reader["PasswordHash"].ToString();
+                                foundUserID = Convert.ToInt32(reader["UserId"]); // >>> ADDED THIS <<<
+                            }
                         }
                     }
-                }
+                } // Connection closes here
 
-                // 4. Verify login
+                // Verify login
                 if (storedHash != null && PasswordHelper.VerifyPassword(password, storedHash))
                 {
-                    // SUCCESS: Open the landing page
+                    // SUCCESS:
+
+                    // >>> ADDED THIS <<<
+                    // Store the ID for other forms to use
+                    staticUserID = foundUserID;
+
+                    // Open the landing page
                     Dashboard2 dashboard = new Dashboard2();
+
+
                     dashboard.Show();
                     this.Hide();
                 }

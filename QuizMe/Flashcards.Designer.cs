@@ -31,16 +31,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Flashcards));
             panel1 = new Panel();
-            label3 = new Label();
-            label2 = new Label();
+            lblAnswer = new Label();
+            lblSeeAnswer = new Label();
+            lblQuestion = new Label();
             label1 = new Label();
             panel3 = new Panel();
             pictureBox1 = new PictureBox();
-            button8 = new Button();
-            label4 = new Label();
-            button9 = new Button();
-            button10 = new Button();
-            button11 = new Button();
+            lblCardNo = new Label();
+            prevBtn = new Button();
+            nextBtn = new Button();
+            refBtn = new Button();
             panel4 = new Panel();
             button14 = new Button();
             button13 = new Button();
@@ -63,6 +63,7 @@
             btnFla = new Button();
             btnDash = new Button();
             createFlashcardButton = new Button();
+            lblScheduledIdentifier = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -80,36 +81,47 @@
             // panel1
             // 
             panel1.BackColor = Color.LimeGreen;
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
+            panel1.Controls.Add(lblAnswer);
+            panel1.Controls.Add(lblSeeAnswer);
+            panel1.Controls.Add(lblQuestion);
             panel1.Controls.Add(label1);
             panel1.Location = new Point(60, 66);
             panel1.Name = "panel1";
             panel1.Size = new Size(824, 427);
             panel1.TabIndex = 0;
             // 
-            // label3
+            // lblAnswer
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.ForestGreen;
-            label3.Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.Snow;
-            label3.Location = new Point(342, 278);
-            label3.Name = "label3";
-            label3.Size = new Size(134, 20);
-            label3.TabIndex = 2;
-            label3.Text = "Click to see answer";
+            lblAnswer.AutoSize = true;
+            lblAnswer.Font = new Font("Lucida Sans Unicode", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAnswer.Location = new Point(400, 350);
+            lblAnswer.Name = "lblAnswer";
+            lblAnswer.Size = new Size(0, 35);
+            lblAnswer.TabIndex = 3;
             // 
-            // label2
+            // lblSeeAnswer
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 25.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(150, 174);
-            label2.Name = "label2";
-            label2.Size = new Size(511, 39);
-            label2.TabIndex = 1;
-            label2.Text = "What does an event listener do?";
+            lblSeeAnswer.AutoSize = true;
+            lblSeeAnswer.BackColor = Color.ForestGreen;
+            lblSeeAnswer.Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSeeAnswer.ForeColor = Color.Snow;
+            lblSeeAnswer.Location = new Point(342, 278);
+            lblSeeAnswer.Name = "lblSeeAnswer";
+            lblSeeAnswer.Size = new Size(134, 20);
+            lblSeeAnswer.TabIndex = 2;
+            lblSeeAnswer.Text = "Click to see answer";
+            lblSeeAnswer.Click += lblSeeAnswer_Click;
+            // 
+            // lblQuestion
+            // 
+            lblQuestion.AutoSize = true;
+            lblQuestion.Font = new Font("Microsoft Sans Serif", 25.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblQuestion.ForeColor = Color.White;
+            lblQuestion.Location = new Point(150, 174);
+            lblQuestion.Name = "lblQuestion";
+            lblQuestion.Size = new Size(511, 39);
+            lblQuestion.TabIndex = 1;
+            lblQuestion.Text = "What does an event listener do?";
             // 
             // label1
             // 
@@ -127,9 +139,9 @@
             // 
             panel3.BackColor = SystemColors.ActiveCaption;
             panel3.BorderStyle = BorderStyle.Fixed3D;
+            panel3.Controls.Add(lblScheduledIdentifier);
             panel3.Controls.Add(pictureBox1);
-            panel3.Controls.Add(button8);
-            panel3.Controls.Add(label4);
+            panel3.Controls.Add(lblCardNo);
             panel3.Controls.Add(panel1);
             panel3.Location = new Point(259, 50);
             panel3.Name = "panel3";
@@ -147,55 +159,48 @@
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
-            // button8
+            // lblCardNo
             // 
-            button8.BackColor = SystemColors.GradientInactiveCaption;
-            button8.Location = new Point(133, 18);
-            button8.Name = "button8";
-            button8.Size = new Size(156, 28);
-            button8.TabIndex = 2;
-            button8.Text = "Event-Driven Programming";
-            button8.UseVisualStyleBackColor = false;
+            lblCardNo.AutoSize = true;
+            lblCardNo.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCardNo.Location = new Point(57, 24);
+            lblCardNo.Name = "lblCardNo";
+            lblCardNo.Size = new Size(70, 13);
+            lblCardNo.TabIndex = 1;
+            lblCardNo.Text = "Card 1 of 3";
             // 
-            // label4
+            // prevBtn
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(57, 24);
-            label4.Name = "label4";
-            label4.Size = new Size(70, 13);
-            label4.TabIndex = 1;
-            label4.Text = "Card 1 of 3";
+            prevBtn.BackColor = Color.White;
+            prevBtn.Location = new Point(319, 580);
+            prevBtn.Name = "prevBtn";
+            prevBtn.Size = new Size(116, 49);
+            prevBtn.TabIndex = 3;
+            prevBtn.Text = "Previous";
+            prevBtn.UseVisualStyleBackColor = false;
+            prevBtn.Click += prevBtn_Click;
             // 
-            // button9
+            // nextBtn
             // 
-            button9.BackColor = Color.White;
-            button9.Location = new Point(319, 580);
-            button9.Name = "button9";
-            button9.Size = new Size(116, 49);
-            button9.TabIndex = 3;
-            button9.Text = "Previous";
-            button9.UseVisualStyleBackColor = false;
+            nextBtn.BackColor = Color.White;
+            nextBtn.Location = new Point(1027, 580);
+            nextBtn.Name = "nextBtn";
+            nextBtn.Size = new Size(116, 49);
+            nextBtn.TabIndex = 4;
+            nextBtn.Text = "Next";
+            nextBtn.UseVisualStyleBackColor = false;
+            nextBtn.Click += nextBtn_Click;
             // 
-            // button10
+            // refBtn
             // 
-            button10.BackColor = Color.White;
-            button10.Location = new Point(1027, 580);
-            button10.Name = "button10";
-            button10.Size = new Size(116, 49);
-            button10.TabIndex = 4;
-            button10.Text = "Next";
-            button10.UseVisualStyleBackColor = false;
-            // 
-            // button11
-            // 
-            button11.BackColor = Color.White;
-            button11.Location = new Point(661, 580);
-            button11.Name = "button11";
-            button11.Size = new Size(116, 49);
-            button11.TabIndex = 5;
-            button11.Text = "Refresh";
-            button11.UseVisualStyleBackColor = false;
+            refBtn.BackColor = Color.White;
+            refBtn.Location = new Point(661, 580);
+            refBtn.Name = "refBtn";
+            refBtn.Size = new Size(116, 49);
+            refBtn.TabIndex = 5;
+            refBtn.Text = "Refresh";
+            refBtn.UseVisualStyleBackColor = false;
+            refBtn.Click += button11_Click;
             // 
             // panel4
             // 
@@ -467,6 +472,16 @@
             createFlashcardButton.UseVisualStyleBackColor = true;
             createFlashcardButton.Click += createFlashcardButton_Click;
             // 
+            // lblScheduledIdentifier
+            // 
+            lblScheduledIdentifier.AutoSize = true;
+            lblScheduledIdentifier.Location = new Point(144, 24);
+            lblScheduledIdentifier.Name = "lblScheduledIdentifier";
+            lblScheduledIdentifier.Size = new Size(62, 15);
+            lblScheduledIdentifier.TabIndex = 4;
+            lblScheduledIdentifier.Text = "Scheduled";
+            lblScheduledIdentifier.Visible = false;
+            // 
             // Flashcards
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -477,12 +492,13 @@
             Controls.Add(panel2);
             Controls.Add(label6);
             Controls.Add(panel4);
-            Controls.Add(button11);
-            Controls.Add(button10);
-            Controls.Add(button9);
+            Controls.Add(refBtn);
+            Controls.Add(nextBtn);
+            Controls.Add(prevBtn);
             Controls.Add(panel3);
             Name = "Flashcards";
             Text = "Flashcards";
+            Load += Flashcards_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel3.ResumeLayout(false);
@@ -505,16 +521,15 @@
 
         #endregion
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblSeeAnswer;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Label lblCardNo;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button prevBtn;
+        private System.Windows.Forms.Button nextBtn;
+        private System.Windows.Forms.Button refBtn;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button14;
@@ -537,5 +552,7 @@
         private Button btnFla;
         private Button btnDash;
         private Button createFlashcardButton;
+        private Label lblAnswer;
+        private Label lblScheduledIdentifier;
     }
 }
