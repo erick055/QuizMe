@@ -36,6 +36,7 @@
             lblQuestion = new Label();
             label1 = new Label();
             panel3 = new Panel();
+            lblScheduledIdentifier = new Label();
             pictureBox1 = new PictureBox();
             lblCardNo = new Label();
             prevBtn = new Button();
@@ -63,7 +64,7 @@
             btnFla = new Button();
             btnDash = new Button();
             createFlashcardButton = new Button();
-            lblScheduledIdentifier = new Label();
+            btnDelete = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -147,6 +148,16 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(935, 524);
             panel3.TabIndex = 2;
+            // 
+            // lblScheduledIdentifier
+            // 
+            lblScheduledIdentifier.AutoSize = true;
+            lblScheduledIdentifier.Location = new Point(144, 24);
+            lblScheduledIdentifier.Name = "lblScheduledIdentifier";
+            lblScheduledIdentifier.Size = new Size(62, 15);
+            lblScheduledIdentifier.TabIndex = 4;
+            lblScheduledIdentifier.Text = "Scheduled";
+            lblScheduledIdentifier.Visible = false;
             // 
             // pictureBox1
             // 
@@ -472,15 +483,16 @@
             createFlashcardButton.UseVisualStyleBackColor = true;
             createFlashcardButton.Click += createFlashcardButton_Click;
             // 
-            // lblScheduledIdentifier
+            // btnDelete
             // 
-            lblScheduledIdentifier.AutoSize = true;
-            lblScheduledIdentifier.Location = new Point(144, 24);
-            lblScheduledIdentifier.Name = "lblScheduledIdentifier";
-            lblScheduledIdentifier.Size = new Size(62, 15);
-            lblScheduledIdentifier.TabIndex = 4;
-            lblScheduledIdentifier.Text = "Scheduled";
-            lblScheduledIdentifier.Visible = false;
+            btnDelete.BackColor = Color.MistyRose;
+            btnDelete.Location = new Point(844, 580);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(116, 49);
+            btnDelete.TabIndex = 31;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // Flashcards
             // 
@@ -488,6 +500,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.GradientInactiveCaption;
             ClientSize = new Size(1381, 1061);
+            Controls.Add(btnDelete);
             Controls.Add(createFlashcardButton);
             Controls.Add(panel2);
             Controls.Add(label6);
@@ -554,5 +567,6 @@
         private Button createFlashcardButton;
         private Label lblAnswer;
         private Label lblScheduledIdentifier;
+        private Button btnDelete; 
     }
 }

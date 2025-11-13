@@ -2,15 +2,13 @@
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace QuizMe_ // Your namespace from the file
-{
+namespace QuizMe_;
     public partial class SignIn : Form
     {
-        // Connection string from your file
+        
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
 
-        // >>> ADDED THIS <<<
-        // Static variable to hold the logged-in user's ID
+       
         public static int staticUserID;
 
         public SignIn()
@@ -32,40 +30,36 @@ namespace QuizMe_ // Your namespace from the file
             try
             {
                 string storedHash = null;
-                int foundUserID = 0; // >>> ADDED THIS <<<
+                int foundUserID = 0; 
 
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    // Query to get BOTH hash and UserId
+                    
                     string query = "SELECT PasswordHash, UserId FROM Users WHERE Username = @Username";
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
                         cmd.Parameters.AddWithValue("@Username", username);
 
-                        // Use a DataReader to get both results
+                        
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 storedHash = reader["PasswordHash"].ToString();
-                                foundUserID = Convert.ToInt32(reader["UserId"]); // >>> ADDED THIS <<<
+                                foundUserID = Convert.ToInt32(reader["UserId"]); 
                             }
                         }
                     }
-                } // Connection closes here
+                } 
 
-                // Verify login
                 if (storedHash != null && PasswordHelper.VerifyPassword(password, storedHash))
                 {
-                    // SUCCESS:
-
-                    // >>> ADDED THIS <<<
-                    // Store the ID for other forms to use
+                   
                     staticUserID = foundUserID;
 
-                    // Open the landing page
+                    
                     Dashboard2 dashboard = new Dashboard2();
 
 
@@ -74,7 +68,7 @@ namespace QuizMe_ // Your namespace from the file
                 }
                 else
                 {
-                    // FAILURE: Show error
+                    
                     MessageBox.Show("Invalid username or password.");
                 }
             }
@@ -91,4 +85,4 @@ namespace QuizMe_ // Your namespace from the file
             this.Hide();
         }
     }
-}
+
