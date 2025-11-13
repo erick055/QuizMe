@@ -129,13 +129,16 @@ namespace QuizMe_
             }
         }
 
+        // --- MODIFIED METHOD ---
         private void UcDays_Click(object sender, EventArgs e)
         {
             UserControlDays ucDay = (UserControlDays)sender;
             DateTime clickedDate = (DateTime)ucDay.Tag;
             Flashcards viewDayCards = new Flashcards(clickedDate);
             viewDayCards.ShowDialog();
+            displayDays(); // <-- THIS LINE REFRESHES THE CALENDAR
         }
+        // --- END OF MODIFICATION ---
 
         private void btnNext_Click(object sender, EventArgs e)
         {

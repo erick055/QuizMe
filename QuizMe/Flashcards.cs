@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace QuizMe_
 
 {
-   
+
     public partial class Flashcards : Form
     {
         SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;");
@@ -105,8 +105,8 @@ namespace QuizMe_
 
         private void Flashcards_Load(object sender, EventArgs e)
         {
-            DeleteExpiredFlashcards(); 
-            LoadFlashcardsFromDB();    
+            DeleteExpiredFlashcards();
+            LoadFlashcardsFromDB();
             DisplayCurrentCard();
         }
         private void LoadFlashcardsFromDB()
@@ -116,9 +116,11 @@ namespace QuizMe_
             {
                 con.Open();
 
-                string query = "SELECT question, answer, schedule_date FROM Flashcards WHERE user_id = @user_id";
+                // --- MODIFIED QUERY ---
+                // Added FlashcardId to the SELECT statement
+                string query = "SELECT flashcard_id, question, answer, schedule_date FROM Flashcards WHERE user_id = @user_id";
 
-                // --- MODIFIED LOGIC ---
+
                 // We CAST schedule_date to a DATE to compare it with our date-only filter
                 if (_filterDate.HasValue)
                 {
@@ -131,7 +133,7 @@ namespace QuizMe_
 
                     if (_filterDate.HasValue)
                     {
-                        // The parameter name is changed to avoid clashes
+
                         cmd.Parameters.AddWithValue("@schedule_date_filter", _filterDate.Value);
                     }
 
@@ -141,6 +143,9 @@ namespace QuizMe_
                         {
                             allFlashcards.Add(new Flashcard
                             {
+                                // --- NEWLY ADDED ---
+                                FlashcardId = Convert.ToInt32(reader["flashcard_id"]),
+
                                 Question = reader["question"].ToString(),
                                 Answer = reader["answer"].ToString(),
                                 ScheduleDate = reader["schedule_date"] == DBNull.Value
@@ -193,6 +198,14 @@ namespace QuizMe_
         {
             if (allFlashcards.Count > 0)
             {
+                // --- ADDED SAFETY CHECK ---
+                // If index is out of bounds (e.g., after deleting last card), reset to last card
+                if (currentCardIndex >= allFlashcards.Count)
+                {
+                    currentCardIndex = allFlashcards.Count - 1;
+                }
+                // --- END OF CHECK ---
+
                 Flashcard currentCard = allFlashcards[currentCardIndex];
                 lblQuestion.Text = currentCard.Question;
                 lblAnswer.Text = currentCard.Answer;
@@ -200,7 +213,6 @@ namespace QuizMe_
                 lblSeeAnswer.Visible = true;
                 lblCardNo.Text = $"card {currentCardIndex + 1} of {allFlashcards.Count}";
 
-                // --- MODIFIED LOGIC ---
                 if (currentCard.ScheduleDate.HasValue)
                 {
                     // Format the time to "hh:mm tt" (e.g., "02:30 PM")
@@ -212,7 +224,6 @@ namespace QuizMe_
                 {
                     lblScheduledIdentifier.Visible = false;
                 }
-                // --- END OF MODIFIED LOGIC ---
             }
             else
             {
@@ -232,7 +243,7 @@ namespace QuizMe_
                 lblScheduledIdentifier.Visible = false; // Also hide it here
             }
         }
-       
+
         private void nextBtn_Click(object sender, EventArgs e)
         {
             if (allFlashcards.Count > 0 && currentCardIndex < allFlashcards.Count - 1)
@@ -250,8 +261,59 @@ namespace QuizMe_
                 DisplayCurrentCard();
             }
         }
+
+        // --- ENTIRELY NEW METHOD ---
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            // 1. Check if there are any cards to delete
+            if (allFlashcards.Count == 0)
+            {
+                MessageBox.Show("There are no flashcards to delete.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // 2. Confirm with the user
+            DialogResult confirm = MessageBox.Show("Are you sure you want to permanently delete this flashcard?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    // 3. Get the ID of the current card
+                    int cardIdToDelete = allFlashcards[currentCardIndex].FlashcardId;
+
+                    // 4. Delete from the database
+                    // Use a new connection to avoid conflicts
+                    using (SqlConnection deleteCon = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;"))
+                    {
+                        deleteCon.Open();
+                        // Delete by the unique FlashcardId AND check the user_id for security
+                        string query = "DELETE FROM Flashcards WHERE flashcard_id = @flashcard_id AND user_id = @user_id";
+                        using (SqlCommand cmd = new SqlCommand(query, deleteCon))
+                        {
+                            cmd.Parameters.AddWithValue("@flashcard_id", cardIdToDelete);
+                            cmd.Parameters.AddWithValue("@user_id", QuizMe_.SignIn.staticUserID);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    // 5. Remove from the local list
+                    allFlashcards.RemoveAt(currentCardIndex);
+
+                    // 6. Refresh the display
+                    DisplayCurrentCard();
+                    MessageBox.Show("Flashcard deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error deleting flashcard: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         public class Flashcard
         {
+            public int FlashcardId { get; set; } // <-- NEW PROPERTY
             public string Question { get; set; }
             public string Answer { get; set; }
             public DateTime? ScheduleDate { get; set; }
