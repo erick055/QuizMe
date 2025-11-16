@@ -14,7 +14,7 @@ namespace QuizMe_
     public partial class Dashboard2 : Form
     {
         SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;");
-
+        private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
         public Dashboard2()
         {
             InitializeComponent();
@@ -62,11 +62,59 @@ namespace QuizMe_
             settings.Show();
         }
 
-       
+
 
         private void Dashboard2_Load(object sender, EventArgs e)
         {
+            DashboardName();
+        }
 
+        private void btnStudy_Click(object sender, EventArgs e)
+        {
+            StudySets studyForm = new StudySets();
+            studyForm.Show();
+        }
+
+        private void glossaryButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void DashboardName()
+        {
+            // Add try...catch for robust error handling
+            try
+            {
+                // The 'using' block will automatically close the connection
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    con.Open();
+                    string query = "SELECT Username FROM Users WHERE UserID = @UserID";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", QuizMe_.SignIn.staticUserID);
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            // 1. Assign the username to the label's Text property.
+                            welcomeLabel.Text = "Welcome back, " + reader["Username"].ToString();
+
+                            
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Show an error if the name can't be loaded
+                MessageBox.Show("Error loading user name: " + ex.Message);
+            }
         }
     }
 }

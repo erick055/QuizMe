@@ -39,8 +39,8 @@
             lblScheduledIdentifier = new Label();
             pictureBox1 = new PictureBox();
             lblCardNo = new Label();
-            prevBtn = new Button();
-            nextBtn = new Button();
+            btnDontKnow = new Button();
+            btnKnew = new Button();
             refBtn = new Button();
             panel4 = new Panel();
             button14 = new Button();
@@ -65,6 +65,7 @@
             btnDash = new Button();
             createFlashcardButton = new Button();
             btnDelete = new Button();
+            btnStudy = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -180,27 +181,27 @@
             lblCardNo.TabIndex = 1;
             lblCardNo.Text = "Card 1 of 3";
             // 
-            // prevBtn
+            // btnDontKnow
             // 
-            prevBtn.BackColor = Color.White;
-            prevBtn.Location = new Point(319, 580);
-            prevBtn.Name = "prevBtn";
-            prevBtn.Size = new Size(116, 49);
-            prevBtn.TabIndex = 3;
-            prevBtn.Text = "Previous";
-            prevBtn.UseVisualStyleBackColor = false;
-            prevBtn.Click += prevBtn_Click;
+            btnDontKnow.BackColor = Color.White;
+            btnDontKnow.Location = new Point(319, 580);
+            btnDontKnow.Name = "btnDontKnow";
+            btnDontKnow.Size = new Size(116, 49);
+            btnDontKnow.TabIndex = 3;
+            btnDontKnow.Text = "Review Again";
+            btnDontKnow.UseVisualStyleBackColor = false;
+            btnDontKnow.Click += btnDontKnow_Click;
             // 
-            // nextBtn
+            // btnKnew
             // 
-            nextBtn.BackColor = Color.White;
-            nextBtn.Location = new Point(1027, 580);
-            nextBtn.Name = "nextBtn";
-            nextBtn.Size = new Size(116, 49);
-            nextBtn.TabIndex = 4;
-            nextBtn.Text = "Next";
-            nextBtn.UseVisualStyleBackColor = false;
-            nextBtn.Click += nextBtn_Click;
+            btnKnew.BackColor = Color.White;
+            btnKnew.Location = new Point(1027, 580);
+            btnKnew.Name = "btnKnew";
+            btnKnew.Size = new Size(116, 49);
+            btnKnew.TabIndex = 4;
+            btnKnew.Text = "I Knew This";
+            btnKnew.UseVisualStyleBackColor = false;
+            btnKnew.Click += btnKnew_Click;
             // 
             // refBtn
             // 
@@ -279,6 +280,7 @@
             // 
             panel2.BackColor = SystemColors.ActiveCaption;
             panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(btnStudy);
             panel2.Controls.Add(pictureBox9);
             panel2.Controls.Add(pictureBox8);
             panel2.Controls.Add(pictureBox7);
@@ -304,7 +306,7 @@
             // 
             pictureBox9.BackColor = Color.White;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(10, 422);
+            pictureBox9.Location = new Point(10, 489);
             pictureBox9.Margin = new Padding(2);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(31, 32);
@@ -399,7 +401,7 @@
             // 
             // btnSet
             // 
-            btnSet.Location = new Point(47, 408);
+            btnSet.Location = new Point(47, 475);
             btnSet.Margin = new Padding(2);
             btnSet.Name = "btnSet";
             btnSet.Size = new Size(145, 63);
@@ -494,6 +496,17 @@
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
+            // btnStudy
+            // 
+            btnStudy.Location = new Point(47, 408);
+            btnStudy.Margin = new Padding(2);
+            btnStudy.Name = "btnStudy";
+            btnStudy.Size = new Size(145, 63);
+            btnStudy.TabIndex = 33;
+            btnStudy.Text = "Study Set";
+            btnStudy.UseVisualStyleBackColor = true;
+            btnStudy.Click += btnStudy_Click;
+            // 
             // Flashcards
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -506,8 +519,8 @@
             Controls.Add(label6);
             Controls.Add(panel4);
             Controls.Add(refBtn);
-            Controls.Add(nextBtn);
-            Controls.Add(prevBtn);
+            Controls.Add(btnKnew);
+            Controls.Add(btnDontKnow);
             Controls.Add(panel3);
             Name = "Flashcards";
             Text = "Flashcards";
@@ -540,8 +553,8 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblCardNo;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button prevBtn;
-        private System.Windows.Forms.Button nextBtn;
+        private System.Windows.Forms.Button btnDontKnow;
+        private System.Windows.Forms.Button btnKnew;
         private System.Windows.Forms.Button refBtn;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label5;
@@ -567,6 +580,7 @@
         private Button createFlashcardButton;
         private Label lblAnswer;
         private Label lblScheduledIdentifier;
-        private Button btnDelete; 
+        private Button btnDelete;
+        private Button btnStudy;
     }
 }

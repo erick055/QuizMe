@@ -36,6 +36,7 @@
             backBtn = new Button();
             dtpScheduleDate = new DateTimePicker();
             label3 = new Label();
+            cmbStudySets = new ComboBox();
             SuspendLayout();
             // 
             // txtQuestion
@@ -49,7 +50,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(59, 78);
+            label1.Location = new Point(59, 49);
             label1.Name = "label1";
             label1.Size = new Size(58, 15);
             label1.TabIndex = 1;
@@ -111,11 +112,21 @@
             label3.TabIndex = 7;
             label3.Text = "Schedule For:";
             // 
+            // cmbStudySets
+            // 
+            cmbStudySets.FormattingEnabled = true;
+            cmbStudySets.Location = new Point(59, 67);
+            cmbStudySets.Name = "cmbStudySets";
+            cmbStudySets.Size = new Size(237, 23);
+            cmbStudySets.TabIndex = 8;
+            cmbStudySets.Text = "Select Study Set (Optional)";
+            // 
             // CreateFlashcard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(362, 526);
+            Controls.Add(cmbStudySets);
             Controls.Add(label3);
             Controls.Add(dtpScheduleDate);
             Controls.Add(backBtn);
@@ -140,5 +151,6 @@
         private Button backBtn;
         private DateTimePicker dtpScheduleDate;
         private Label label3;
+        private ComboBox cmbStudySets;
     }
 }

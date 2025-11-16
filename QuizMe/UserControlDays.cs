@@ -17,38 +17,37 @@ namespace QuizMe_
             InitializeComponent();
         }
 
-        private void UserControlDays_Load(object sender, EventArgs e)
+        // This sets the day number (e.g., "1", "15")
+        public void days(int numday)
         {
-
-        }
-        public void days(int nDay)
-        {
-            lbDays.Text = nDay + "";
-            ClearTime();
-            ClearIdentifier();
-        }
-        public void SetTime(string time)
-        {
-            lblTime.Text = time;
-            lblTime.Visible = true;
+            lbDays.Text = numday.ToString();
         }
 
-        // --- ADD THIS NEW METHOD ---
-        public void ClearTime()
+        // --- NEW METHODS ---
+
+        // Call this to reset the control before use
+        public void ClearEvents()
         {
-            lblTime.Text = "";
-            lblTime.Visible = false;
-        }
-        public void SetIdentifier(string text)
-        {
-            lblIdentifier.Text = text;
-            lblIdentifier.Visible = true;
+            lblFlashcard.Visible = false;
+            lblQuiz.Visible = false;
+            this.BackColor = Color.White; // Reset background color
         }
 
-        public void ClearIdentifier()
+        // Call this if a flashcard is scheduled for this day
+        public void SetFlashcardEvent(string time)
         {
-            lblIdentifier.Text = "";
-            lblIdentifier.Visible = false;
+            lblFlashcard.Text = $"Flashcard: {time}";
+            lblFlashcard.Visible = true;
+            this.BackColor = Color.LightCyan; // Give the day a slight tint
         }
+
+        // Call this if a quiz is scheduled for this day
+        public void SetQuizEvent(string time)
+        {
+            lblQuiz.Text = $"Quiz: {time}";
+            lblQuiz.Visible = true;
+            this.BackColor = Color.LightCyan; // Give the day a slight tint
+        }
+
     }
 }
