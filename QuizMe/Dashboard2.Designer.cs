@@ -112,8 +112,9 @@
             label42 = new Label();
             button17 = new Button();
             label43 = new Label();
-            label44 = new Label();
+            welcomeLabel = new Label();
             panel1 = new Panel();
+            btnStudy = new Button();
             pictureBox9 = new PictureBox();
             pictureBox8 = new PictureBox();
             pictureBox3 = new PictureBox();
@@ -175,6 +176,7 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(1154, 104);
             panel3.TabIndex = 2;
+            panel3.Paint += panel3_Paint;
             // 
             // pictureBox22
             // 
@@ -651,7 +653,7 @@
             panel2.Controls.Add(label42);
             panel2.Controls.Add(button17);
             panel2.Controls.Add(label43);
-            panel2.Controls.Add(label44);
+            panel2.Controls.Add(welcomeLabel);
             panel2.Location = new Point(259, 138);
             panel2.Name = "panel2";
             panel2.Size = new Size(480, 549);
@@ -1108,22 +1110,23 @@
             label43.TabIndex = 68;
             label43.Text = "Ready to ace your studies? Here's what you can do today";
             // 
-            // label44
+            // welcomeLabel
             // 
-            label44.AutoSize = true;
-            label44.BackColor = SystemColors.ControlLightLight;
-            label44.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label44.ForeColor = Color.Black;
-            label44.Location = new Point(17, 10);
-            label44.Name = "label44";
-            label44.Size = new Size(286, 29);
-            label44.TabIndex = 67;
-            label44.Text = "Welcome back, Jr Bernal.";
+            welcomeLabel.AutoSize = true;
+            welcomeLabel.BackColor = SystemColors.ControlLightLight;
+            welcomeLabel.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            welcomeLabel.ForeColor = Color.Black;
+            welcomeLabel.Location = new Point(17, 10);
+            welcomeLabel.Name = "welcomeLabel";
+            welcomeLabel.Size = new Size(286, 29);
+            welcomeLabel.TabIndex = 67;
+            welcomeLabel.Text = "Welcome back, Jr Bernal.";
             // 
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(btnStudy);
             panel1.Controls.Add(pictureBox9);
             panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pictureBox3);
@@ -1145,11 +1148,22 @@
             panel1.Size = new Size(225, 769);
             panel1.TabIndex = 30;
             // 
+            // btnStudy
+            // 
+            btnStudy.Location = new Point(47, 408);
+            btnStudy.Margin = new Padding(2);
+            btnStudy.Name = "btnStudy";
+            btnStudy.Size = new Size(145, 63);
+            btnStudy.TabIndex = 16;
+            btnStudy.Text = "Study Set";
+            btnStudy.UseVisualStyleBackColor = true;
+            btnStudy.Click += btnStudy_Click;
+            // 
             // pictureBox9
             // 
             pictureBox9.BackColor = Color.White;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(10, 422);
+            pictureBox9.Location = new Point(7, 488);
             pictureBox9.Margin = new Padding(2);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(31, 32);
@@ -1244,7 +1258,7 @@
             // 
             // settingsButton
             // 
-            settingsButton.Location = new Point(47, 408);
+            settingsButton.Location = new Point(47, 475);
             settingsButton.Margin = new Padding(2);
             settingsButton.Name = "settingsButton";
             settingsButton.Size = new Size(145, 63);
@@ -1284,6 +1298,7 @@
             glossaryButton.TabIndex = 3;
             glossaryButton.Text = "Glossary";
             glossaryButton.UseVisualStyleBackColor = true;
+            glossaryButton.Click += glossaryButton_Click;
             // 
             // quizzesButton
             // 
@@ -1462,7 +1477,7 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label welcomeLabel;
         private System.Windows.Forms.PictureBox pictureBox22;
         private Panel panel1;
         private PictureBox pictureBox9;
@@ -1479,5 +1494,6 @@
         private Button quizzesButton;
         private Button flashcardsButton;
         private Button dashboardButton;
+        private Button btnStudy;
     }
 }

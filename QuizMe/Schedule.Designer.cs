@@ -61,6 +61,7 @@
             btnQui = new Button();
             btnFla = new Button();
             btnDash = new Button();
+            btnStudy = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
@@ -236,6 +237,7 @@
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(btnStudy);
             panel1.Controls.Add(pictureBox9);
             panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pictureBox7);
@@ -261,7 +263,7 @@
             // 
             pictureBox9.BackColor = Color.White;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(10, 422);
+            pictureBox9.Location = new Point(10, 489);
             pictureBox9.Margin = new Padding(2);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(31, 32);
@@ -356,7 +358,7 @@
             // 
             // btnSet
             // 
-            btnSet.Location = new Point(47, 408);
+            btnSet.Location = new Point(47, 475);
             btnSet.Margin = new Padding(2);
             btnSet.Name = "btnSet";
             btnSet.Size = new Size(145, 63);
@@ -430,6 +432,17 @@
             btnDash.UseVisualStyleBackColor = true;
             btnDash.Click += btnDash_Click;
             // 
+            // btnStudy
+            // 
+            btnStudy.Location = new Point(47, 408);
+            btnStudy.Margin = new Padding(2);
+            btnStudy.Name = "btnStudy";
+            btnStudy.Size = new Size(145, 63);
+            btnStudy.TabIndex = 33;
+            btnStudy.Text = "Study Set";
+            btnStudy.UseVisualStyleBackColor = true;
+            btnStudy.Click += btnStudy_Click;
+            // 
             // Schedule
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -502,5 +515,6 @@
         private Button btnQui;
         private Button btnFla;
         private Button btnDash;
+        private Button btnStudy;
     }
 }

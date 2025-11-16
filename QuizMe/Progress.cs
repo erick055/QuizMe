@@ -17,7 +17,7 @@ namespace QuizMe_
             InitializeComponent();
         }
 
-       
+
 
 
 
@@ -59,6 +59,13 @@ namespace QuizMe_
             this.Hide();
 
             settings.Show();
+        }
+
+        private void btnStudy_Click(object sender, EventArgs e)
+        {
+            StudySets studySets = new StudySets();
+            this.Hide();
+            studySets.Show();
         }
     }
 }

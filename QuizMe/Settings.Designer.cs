@@ -30,21 +30,23 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             panelProfile = new Panel();
+            lblBio = new Label();
+            lblFullName = new Label();
+            pictureBox4 = new PictureBox();
             txtBio = new TextBox();
-            txtEmail = new TextBox();
             txtFullName = new TextBox();
             label4 = new Label();
-            label3 = new Label();
             label2 = new Label();
             btnChangeprof = new Button();
-            label1 = new Label();
+            lblUsername = new Label();
             panelNotification = new Panel();
-            checkBoxSoundsEff = new CheckBox();
-            checkBoxPushNotif = new CheckBox();
+            chkSoundEffects = new CheckBox();
+            chkPushNotifications = new CheckBox();
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
             panel1 = new Panel();
+            btnStudy = new Button();
             pictureBox9 = new PictureBox();
             pictureBox8 = new PictureBox();
             pictureBox7 = new PictureBox();
@@ -59,13 +61,13 @@
             btnQui = new Button();
             btnFla = new Button();
             btnDash = new Button();
-            pictureBox4 = new PictureBox();
             button1 = new Button();
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
-            button2 = new Button();
+            btnSaveChanges = new Button();
             label8 = new Label();
             panelProfile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panelNotification.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
@@ -75,7 +77,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
@@ -84,39 +85,65 @@
             // 
             panelProfile.BackColor = Color.FromArgb(192, 255, 192);
             panelProfile.BorderStyle = BorderStyle.FixedSingle;
+            panelProfile.Controls.Add(lblBio);
+            panelProfile.Controls.Add(lblFullName);
             panelProfile.Controls.Add(pictureBox4);
             panelProfile.Controls.Add(txtBio);
-            panelProfile.Controls.Add(txtEmail);
             panelProfile.Controls.Add(txtFullName);
             panelProfile.Controls.Add(label4);
-            panelProfile.Controls.Add(label3);
             panelProfile.Controls.Add(label2);
             panelProfile.Controls.Add(btnChangeprof);
-            panelProfile.Controls.Add(label1);
+            panelProfile.Controls.Add(lblUsername);
             panelProfile.Location = new Point(283, 77);
             panelProfile.Name = "panelProfile";
-            panelProfile.Size = new Size(824, 225);
+            panelProfile.Size = new Size(824, 258);
             panelProfile.TabIndex = 0;
+            // 
+            // lblBio
+            // 
+            lblBio.AutoSize = true;
+            lblBio.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblBio.Location = new Point(30, 105);
+            lblBio.Name = "lblBio";
+            lblBio.Size = new Size(31, 20);
+            lblBio.TabIndex = 18;
+            lblBio.Text = "Bio";
+            // 
+            // lblFullName
+            // 
+            lblFullName.AutoSize = true;
+            lblFullName.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFullName.Location = new Point(30, 78);
+            lblFullName.Name = "lblFullName";
+            lblFullName.Size = new Size(101, 25);
+            lblFullName.TabIndex = 17;
+            lblFullName.Text = "Full Name";
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.White;
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(18, 17);
+            pictureBox4.Margin = new Padding(2);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(31, 32);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 16;
+            pictureBox4.TabStop = false;
+            pictureBox4.UseWaitCursor = true;
             // 
             // txtBio
             // 
-            txtBio.Location = new Point(30, 177);
+            txtBio.Location = new Point(27, 205);
             txtBio.Multiline = true;
             txtBio.Name = "txtBio";
             txtBio.Size = new Size(535, 33);
             txtBio.TabIndex = 7;
-            // 
-            // txtEmail
-            // 
-            txtEmail.Location = new Point(419, 107);
-            txtEmail.Multiline = true;
-            txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(279, 23);
-            txtEmail.TabIndex = 6;
+            txtBio.TextChanged += txtBio_TextChanged;
             // 
             // txtFullName
             // 
-            txtFullName.Location = new Point(27, 107);
+            txtFullName.Location = new Point(115, 153);
             txtFullName.Multiline = true;
             txtFullName.Name = "txtFullName";
             txtFullName.Size = new Size(279, 23);
@@ -126,27 +153,17 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(27, 153);
+            label4.Location = new Point(27, 181);
             label4.Name = "label4";
             label4.Size = new Size(32, 21);
             label4.TabIndex = 4;
             label4.Text = "Bio";
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(419, 71);
-            label3.Name = "label3";
-            label3.Size = new Size(48, 21);
-            label3.TabIndex = 3;
-            label3.Text = "Email";
-            // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(27, 71);
+            label2.Location = new Point(28, 151);
             label2.Name = "label2";
             label2.Size = new Size(81, 21);
             label2.TabIndex = 2;
@@ -154,29 +171,29 @@
             // 
             // btnChangeprof
             // 
-            btnChangeprof.Location = new Point(48, 39);
+            btnChangeprof.Location = new Point(138, 26);
             btnChangeprof.Name = "btnChangeprof";
             btnChangeprof.Size = new Size(101, 23);
             btnChangeprof.TabIndex = 1;
             btnChangeprof.Text = "Change Profile";
             btnChangeprof.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // lblUsername
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(48, 6);
-            label1.Name = "label1";
-            label1.Size = new Size(78, 30);
-            label1.TabIndex = 0;
-            label1.Text = "Profile";
+            lblUsername.AutoSize = true;
+            lblUsername.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUsername.Location = new Point(54, 19);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(78, 30);
+            lblUsername.TabIndex = 0;
+            lblUsername.Text = "Profile";
             // 
             // panelNotification
             // 
             panelNotification.BackColor = Color.LightSkyBlue;
             panelNotification.BorderStyle = BorderStyle.FixedSingle;
-            panelNotification.Controls.Add(checkBoxSoundsEff);
-            panelNotification.Controls.Add(checkBoxPushNotif);
+            panelNotification.Controls.Add(chkSoundEffects);
+            panelNotification.Controls.Add(chkPushNotifications);
             panelNotification.Controls.Add(label7);
             panelNotification.Controls.Add(label6);
             panelNotification.Controls.Add(label5);
@@ -185,25 +202,23 @@
             panelNotification.Size = new Size(824, 225);
             panelNotification.TabIndex = 1;
             // 
-            // checkBoxSoundsEff
+            // chkSoundEffects
             // 
-            checkBoxSoundsEff.AutoSize = true;
-            checkBoxSoundsEff.Location = new Point(338, 127);
-            checkBoxSoundsEff.Name = "checkBoxSoundsEff";
-            checkBoxSoundsEff.Size = new Size(82, 19);
-            checkBoxSoundsEff.TabIndex = 4;
-            checkBoxSoundsEff.Text = "checkBox2";
-            checkBoxSoundsEff.UseVisualStyleBackColor = true;
+            chkSoundEffects.AutoSize = true;
+            chkSoundEffects.Location = new Point(183, 131);
+            chkSoundEffects.Name = "chkSoundEffects";
+            chkSoundEffects.Size = new Size(15, 14);
+            chkSoundEffects.TabIndex = 4;
+            chkSoundEffects.UseVisualStyleBackColor = true;
             // 
-            // checkBoxPushNotif
+            // chkPushNotifications
             // 
-            checkBoxPushNotif.AutoSize = true;
-            checkBoxPushNotif.Location = new Point(338, 75);
-            checkBoxPushNotif.Name = "checkBoxPushNotif";
-            checkBoxPushNotif.Size = new Size(82, 19);
-            checkBoxPushNotif.TabIndex = 3;
-            checkBoxPushNotif.Text = "checkBox1";
-            checkBoxPushNotif.UseVisualStyleBackColor = true;
+            chkPushNotifications.AutoSize = true;
+            chkPushNotifications.Location = new Point(183, 71);
+            chkPushNotifications.Name = "chkPushNotifications";
+            chkPushNotifications.Size = new Size(15, 14);
+            chkPushNotifications.TabIndex = 3;
+            chkPushNotifications.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -239,6 +254,7 @@
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(btnStudy);
             panel1.Controls.Add(pictureBox9);
             panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pictureBox7);
@@ -260,11 +276,22 @@
             panel1.Size = new Size(225, 769);
             panel1.TabIndex = 28;
             // 
+            // btnStudy
+            // 
+            btnStudy.Location = new Point(47, 410);
+            btnStudy.Margin = new Padding(2);
+            btnStudy.Name = "btnStudy";
+            btnStudy.Size = new Size(145, 63);
+            btnStudy.TabIndex = 33;
+            btnStudy.Text = "Study Set";
+            btnStudy.UseVisualStyleBackColor = true;
+            btnStudy.Click += btnStudy_Click;
+            // 
             // pictureBox9
             // 
             pictureBox9.BackColor = Color.White;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(10, 422);
+            pictureBox9.Location = new Point(10, 491);
             pictureBox9.Margin = new Padding(2);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(31, 32);
@@ -359,7 +386,7 @@
             // 
             // button7
             // 
-            button7.Location = new Point(47, 408);
+            button7.Location = new Point(47, 477);
             button7.Margin = new Padding(2);
             button7.Name = "button7";
             button7.Size = new Size(145, 63);
@@ -432,19 +459,6 @@
             btnDash.UseVisualStyleBackColor = true;
             btnDash.Click += btnDash_Click;
             // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = Color.White;
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(12, 17);
-            pictureBox4.Margin = new Padding(2);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(31, 32);
-            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox4.TabIndex = 16;
-            pictureBox4.TabStop = false;
-            pictureBox4.UseWaitCursor = true;
-            // 
             // button1
             // 
             button1.Location = new Point(314, 769);
@@ -454,6 +468,7 @@
             button1.TabIndex = 16;
             button1.Text = "Log out";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // pictureBox5
             // 
@@ -483,15 +498,16 @@
             pictureBox6.UseWaitCursor = true;
             pictureBox6.Visible = false;
             // 
-            // button2
+            // btnSaveChanges
             // 
-            button2.Location = new Point(1005, 25);
-            button2.Margin = new Padding(2);
-            button2.Name = "button2";
-            button2.Size = new Size(102, 25);
-            button2.TabIndex = 30;
-            button2.Text = "Save Changes";
-            button2.UseVisualStyleBackColor = true;
+            btnSaveChanges.Location = new Point(1005, 25);
+            btnSaveChanges.Margin = new Padding(2);
+            btnSaveChanges.Name = "btnSaveChanges";
+            btnSaveChanges.Size = new Size(102, 25);
+            btnSaveChanges.TabIndex = 30;
+            btnSaveChanges.Text = "Save Changes";
+            btnSaveChanges.UseVisualStyleBackColor = true;
+            btnSaveChanges.Click += btnSaveChanges_Click;
             // 
             // label8
             // 
@@ -511,7 +527,7 @@
             ClientSize = new Size(1381, 1061);
             Controls.Add(label8);
             Controls.Add(pictureBox6);
-            Controls.Add(button2);
+            Controls.Add(btnSaveChanges);
             Controls.Add(pictureBox5);
             Controls.Add(button1);
             Controls.Add(panel1);
@@ -519,8 +535,10 @@
             Controls.Add(panelProfile);
             Name = "Settings";
             Text = "settings";
+            Load += Settings_Load;
             panelProfile.ResumeLayout(false);
             panelProfile.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panelNotification.ResumeLayout(false);
             panelNotification.PerformLayout();
             panel1.ResumeLayout(false);
@@ -531,7 +549,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
@@ -542,16 +559,14 @@
 
         private Panel panelProfile;
         private Label label4;
-        private Label label3;
         private Label label2;
         private Button btnChangeprof;
-        private Label label1;
+        private Label lblUsername;
         private Panel panelNotification;
-        private TextBox txtEmail;
         private TextBox txtFullName;
         private TextBox txtBio;
-        private CheckBox checkBoxSoundsEff;
-        private CheckBox checkBoxPushNotif;
+        private CheckBox chkSoundEffects;
+        private CheckBox chkPushNotifications;
         private Label label7;
         private Label label6;
         private Label label5;
@@ -574,7 +589,10 @@
         private Button button1;
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
-        private Button button2;
+        private Button btnSaveChanges;
         private Label label8;
+        private Button btnStudy;
+        private Label lblFullName;
+        private Label lblBio;
     }
 }

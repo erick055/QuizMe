@@ -100,6 +100,7 @@
             btnQui = new Button();
             btnFla = new Button();
             btnDash = new Button();
+            btnStudy = new Button();
             panelCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panelAverage.SuspendLayout();
@@ -770,6 +771,7 @@
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(btnStudy);
             panel1.Controls.Add(pictureBox9);
             panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pictureBox7);
@@ -795,7 +797,7 @@
             // 
             pictureBox9.BackColor = Color.White;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(10, 422);
+            pictureBox9.Location = new Point(10, 489);
             pictureBox9.Margin = new Padding(2);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(31, 32);
@@ -890,7 +892,7 @@
             // 
             // button7
             // 
-            button7.Location = new Point(47, 408);
+            button7.Location = new Point(47, 475);
             button7.Margin = new Padding(2);
             button7.Name = "button7";
             button7.Size = new Size(145, 63);
@@ -962,6 +964,17 @@
             btnDash.Text = "Dashboard";
             btnDash.UseVisualStyleBackColor = true;
             btnDash.Click += btnDash_Click;
+            // 
+            // btnStudy
+            // 
+            btnStudy.Location = new Point(47, 408);
+            btnStudy.Margin = new Padding(2);
+            btnStudy.Name = "btnStudy";
+            btnStudy.Size = new Size(145, 63);
+            btnStudy.TabIndex = 33;
+            btnStudy.Text = "Study Set";
+            btnStudy.UseVisualStyleBackColor = true;
+            btnStudy.Click += btnStudy_Click;
             // 
             // Progress
             // 
@@ -1099,5 +1112,6 @@
         private PictureBox pictureBox15;
         private PictureBox pictureBox16;
         private PictureBox pictureBox17;
+        private Button btnStudy;
     }
 }
