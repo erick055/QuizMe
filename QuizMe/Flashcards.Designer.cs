@@ -42,22 +42,16 @@
             btnDontKnow = new Button();
             btnKnew = new Button();
             refBtn = new Button();
-            panel4 = new Panel();
-            button14 = new Button();
-            button13 = new Button();
-            button12 = new Button();
-            label5 = new Label();
             label6 = new Label();
             panel2 = new Panel();
+            btnStudy = new Button();
             pictureBox9 = new PictureBox();
-            pictureBox8 = new PictureBox();
             pictureBox7 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox4 = new PictureBox();
             pictureBox10 = new PictureBox();
             btnSet = new Button();
-            btnProg = new Button();
             btnSched = new Button();
             btnGlo = new Button();
             btnQui = new Button();
@@ -65,14 +59,11 @@
             btnDash = new Button();
             createFlashcardButton = new Button();
             btnDelete = new Button();
-            btnStudy = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel4.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -214,59 +205,6 @@
             refBtn.UseVisualStyleBackColor = false;
             refBtn.Click += button11_Click;
             // 
-            // panel4
-            // 
-            panel4.BackColor = SystemColors.ControlLightLight;
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(button14);
-            panel4.Controls.Add(button13);
-            panel4.Controls.Add(button12);
-            panel4.Controls.Add(label5);
-            panel4.Location = new Point(442, 654);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(598, 112);
-            panel4.TabIndex = 6;
-            // 
-            // button14
-            // 
-            button14.BackColor = Color.PaleGreen;
-            button14.Location = new Point(403, 50);
-            button14.Name = "button14";
-            button14.Size = new Size(140, 34);
-            button14.TabIndex = 3;
-            button14.Text = "Easy";
-            button14.UseVisualStyleBackColor = false;
-            // 
-            // button13
-            // 
-            button13.BackColor = Color.PapayaWhip;
-            button13.Location = new Point(232, 50);
-            button13.Name = "button13";
-            button13.Size = new Size(140, 34);
-            button13.TabIndex = 2;
-            button13.Text = "Hard";
-            button13.UseVisualStyleBackColor = false;
-            // 
-            // button12
-            // 
-            button12.BackColor = Color.Violet;
-            button12.Location = new Point(50, 50);
-            button12.Name = "button12";
-            button12.Size = new Size(140, 34);
-            button12.TabIndex = 1;
-            button12.Text = "Again";
-            button12.UseVisualStyleBackColor = false;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(10, 14);
-            label5.Name = "label5";
-            label5.Size = new Size(187, 15);
-            label5.TabIndex = 0;
-            label5.Text = "How well did you know this?";
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -282,14 +220,12 @@
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(btnStudy);
             panel2.Controls.Add(pictureBox9);
-            panel2.Controls.Add(pictureBox8);
             panel2.Controls.Add(pictureBox7);
             panel2.Controls.Add(pictureBox2);
             panel2.Controls.Add(pictureBox3);
             panel2.Controls.Add(pictureBox4);
             panel2.Controls.Add(pictureBox10);
             panel2.Controls.Add(btnSet);
-            panel2.Controls.Add(btnProg);
             panel2.Controls.Add(btnSched);
             panel2.Controls.Add(btnGlo);
             panel2.Controls.Add(btnQui);
@@ -302,11 +238,22 @@
             panel2.Size = new Size(225, 769);
             panel2.TabIndex = 29;
             // 
+            // btnStudy
+            // 
+            btnStudy.Location = new Point(47, 343);
+            btnStudy.Margin = new Padding(2);
+            btnStudy.Name = "btnStudy";
+            btnStudy.Size = new Size(145, 63);
+            btnStudy.TabIndex = 33;
+            btnStudy.Text = "Study Set";
+            btnStudy.UseVisualStyleBackColor = true;
+            btnStudy.Click += btnStudy_Click;
+            // 
             // pictureBox9
             // 
             pictureBox9.BackColor = Color.White;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(10, 489);
+            pictureBox9.Location = new Point(10, 424);
             pictureBox9.Margin = new Padding(2);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(31, 32);
@@ -315,20 +262,6 @@
             pictureBox9.TabStop = false;
             pictureBox9.UseWaitCursor = true;
             pictureBox9.Visible = false;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.BackColor = Color.White;
-            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(10, 358);
-            pictureBox8.Margin = new Padding(2);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(31, 32);
-            pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox8.TabIndex = 14;
-            pictureBox8.TabStop = false;
-            pictureBox8.UseWaitCursor = true;
-            pictureBox8.Visible = false;
             // 
             // pictureBox7
             // 
@@ -401,7 +334,7 @@
             // 
             // btnSet
             // 
-            btnSet.Location = new Point(47, 475);
+            btnSet.Location = new Point(47, 410);
             btnSet.Margin = new Padding(2);
             btnSet.Name = "btnSet";
             btnSet.Size = new Size(145, 63);
@@ -409,17 +342,6 @@
             btnSet.Text = "Settings";
             btnSet.UseVisualStyleBackColor = true;
             btnSet.Click += btnSet_Click;
-            // 
-            // btnProg
-            // 
-            btnProg.Location = new Point(47, 343);
-            btnProg.Margin = new Padding(2);
-            btnProg.Name = "btnProg";
-            btnProg.Size = new Size(145, 61);
-            btnProg.TabIndex = 5;
-            btnProg.Text = "Progress";
-            btnProg.UseVisualStyleBackColor = true;
-            btnProg.Click += btnProg_Click;
             // 
             // btnSched
             // 
@@ -441,6 +363,7 @@
             btnGlo.TabIndex = 3;
             btnGlo.Text = "Glossary";
             btnGlo.UseVisualStyleBackColor = true;
+            btnGlo.Click += btnGlo_Click;
             // 
             // btnQui
             // 
@@ -496,17 +419,6 @@
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
-            // btnStudy
-            // 
-            btnStudy.Location = new Point(47, 408);
-            btnStudy.Margin = new Padding(2);
-            btnStudy.Name = "btnStudy";
-            btnStudy.Size = new Size(145, 63);
-            btnStudy.TabIndex = 33;
-            btnStudy.Text = "Study Set";
-            btnStudy.UseVisualStyleBackColor = true;
-            btnStudy.Click += btnStudy_Click;
-            // 
             // Flashcards
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -517,7 +429,6 @@
             Controls.Add(createFlashcardButton);
             Controls.Add(panel2);
             Controls.Add(label6);
-            Controls.Add(panel4);
             Controls.Add(refBtn);
             Controls.Add(btnKnew);
             Controls.Add(btnDontKnow);
@@ -530,11 +441,8 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -556,22 +464,15 @@
         private System.Windows.Forms.Button btnDontKnow;
         private System.Windows.Forms.Button btnKnew;
         private System.Windows.Forms.Button refBtn;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Label label6;
         private Panel panel2;
         private PictureBox pictureBox9;
-        private PictureBox pictureBox8;
         private PictureBox pictureBox7;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
         private PictureBox pictureBox10;
         private Button btnSet;
-        private Button btnProg;
         private Button btnSched;
         private Button btnGlo;
         private Button btnQui;

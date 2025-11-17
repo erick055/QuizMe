@@ -56,8 +56,19 @@ namespace QuizMe_
                         cmd.Parameters.AddWithValue("@Description", description);
                         cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
 
-                        // This correctly saves the date from your DateTimePicker
-                        cmd.Parameters.AddWithValue("@ScheduledDate", dtpScheduledDate.Value);
+                        // --- THIS IS THE FIX ---
+                        // Check if the schedule checkbox is checked
+                        if (chkEnableSchedule.Checked)
+                        {
+                            // If yes, save the date from the DateTimePicker
+                            cmd.Parameters.AddWithValue("@ScheduledDate", dtpScheduledDate.Value);
+                        }
+                        else
+                        {
+                            // If no, save NULL to the database
+                            cmd.Parameters.AddWithValue("@ScheduledDate", DBNull.Value);
+                        }
+                        // --- END OF FIX ---
 
                         cmd.ExecuteNonQuery();
                         QuizCreatedSuccessfully = true;
@@ -76,11 +87,16 @@ namespace QuizMe_
         // This was an empty method, so I removed its contents
         private void CreateQuizForm_Load(object sender, EventArgs e)
         {
+            // Start with the checkbox unchecked
+            chkEnableSchedule.Checked = false;
+            // And the DateTimePicker disabled
+            dtpScheduledDate.Enabled = false;
         }
 
         // This was an empty method, so I removed its contents
         private void chkEnableSchedule_CheckedChanged(object sender, EventArgs e)
         {
+            dtpScheduledDate.Enabled = chkEnableSchedule.Checked;
         }
     }
 }

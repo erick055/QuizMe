@@ -48,14 +48,12 @@
             panel1 = new Panel();
             btnStudy = new Button();
             pictureBox9 = new PictureBox();
-            pictureBox8 = new PictureBox();
             pictureBox7 = new PictureBox();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox10 = new PictureBox();
             button7 = new Button();
-            btnProg = new Button();
             btnSched = new Button();
             btnGlo = new Button();
             btnQui = new Button();
@@ -66,12 +64,13 @@
             pictureBox6 = new PictureBox();
             btnSaveChanges = new Button();
             label8 = new Label();
+            label1 = new Label();
+            label3 = new Label();
             panelProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panelNotification.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -85,6 +84,8 @@
             // 
             panelProfile.BackColor = Color.FromArgb(192, 255, 192);
             panelProfile.BorderStyle = BorderStyle.FixedSingle;
+            panelProfile.Controls.Add(label3);
+            panelProfile.Controls.Add(label1);
             panelProfile.Controls.Add(lblBio);
             panelProfile.Controls.Add(lblFullName);
             panelProfile.Controls.Add(pictureBox4);
@@ -103,7 +104,7 @@
             // 
             lblBio.AutoSize = true;
             lblBio.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblBio.Location = new Point(30, 105);
+            lblBio.Location = new Point(115, 105);
             lblBio.Name = "lblBio";
             lblBio.Size = new Size(31, 20);
             lblBio.TabIndex = 18;
@@ -113,7 +114,7 @@
             // 
             lblFullName.AutoSize = true;
             lblFullName.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblFullName.Location = new Point(30, 78);
+            lblFullName.Location = new Point(115, 75);
             lblFullName.Name = "lblFullName";
             lblFullName.Size = new Size(101, 25);
             lblFullName.TabIndex = 17;
@@ -134,7 +135,7 @@
             // 
             // txtBio
             // 
-            txtBio.Location = new Point(27, 205);
+            txtBio.Location = new Point(87, 207);
             txtBio.Multiline = true;
             txtBio.Name = "txtBio";
             txtBio.Size = new Size(535, 33);
@@ -143,7 +144,7 @@
             // 
             // txtFullName
             // 
-            txtFullName.Location = new Point(115, 153);
+            txtFullName.Location = new Point(115, 178);
             txtFullName.Multiline = true;
             txtFullName.Name = "txtFullName";
             txtFullName.Size = new Size(279, 23);
@@ -153,7 +154,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(27, 181);
+            label4.Location = new Point(30, 214);
             label4.Name = "label4";
             label4.Size = new Size(32, 21);
             label4.TabIndex = 4;
@@ -163,7 +164,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(28, 151);
+            label2.Location = new Point(25, 180);
             label2.Name = "label2";
             label2.Size = new Size(81, 21);
             label2.TabIndex = 2;
@@ -256,14 +257,12 @@
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(btnStudy);
             panel1.Controls.Add(pictureBox9);
-            panel1.Controls.Add(pictureBox8);
             panel1.Controls.Add(pictureBox7);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox3);
             panel1.Controls.Add(pictureBox10);
             panel1.Controls.Add(button7);
-            panel1.Controls.Add(btnProg);
             panel1.Controls.Add(btnSched);
             panel1.Controls.Add(btnGlo);
             panel1.Controls.Add(btnQui);
@@ -278,7 +277,7 @@
             // 
             // btnStudy
             // 
-            btnStudy.Location = new Point(47, 410);
+            btnStudy.Location = new Point(47, 343);
             btnStudy.Margin = new Padding(2);
             btnStudy.Name = "btnStudy";
             btnStudy.Size = new Size(145, 63);
@@ -291,7 +290,7 @@
             // 
             pictureBox9.BackColor = Color.White;
             pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(10, 491);
+            pictureBox9.Location = new Point(10, 424);
             pictureBox9.Margin = new Padding(2);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(31, 32);
@@ -300,20 +299,6 @@
             pictureBox9.TabStop = false;
             pictureBox9.UseWaitCursor = true;
             pictureBox9.Visible = false;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.BackColor = Color.White;
-            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(10, 358);
-            pictureBox8.Margin = new Padding(2);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(31, 32);
-            pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox8.TabIndex = 14;
-            pictureBox8.TabStop = false;
-            pictureBox8.UseWaitCursor = true;
-            pictureBox8.Visible = false;
             // 
             // pictureBox7
             // 
@@ -386,24 +371,13 @@
             // 
             // button7
             // 
-            button7.Location = new Point(47, 477);
+            button7.Location = new Point(47, 410);
             button7.Margin = new Padding(2);
             button7.Name = "button7";
             button7.Size = new Size(145, 63);
             button7.TabIndex = 6;
             button7.Text = "Settings";
             button7.UseVisualStyleBackColor = true;
-            // 
-            // btnProg
-            // 
-            btnProg.Location = new Point(47, 343);
-            btnProg.Margin = new Padding(2);
-            btnProg.Name = "btnProg";
-            btnProg.Size = new Size(145, 61);
-            btnProg.TabIndex = 5;
-            btnProg.Text = "Progress";
-            btnProg.UseVisualStyleBackColor = true;
-            btnProg.Click += btnProg_Click;
             // 
             // btnSched
             // 
@@ -425,6 +399,7 @@
             btnGlo.TabIndex = 3;
             btnGlo.Text = "Glossary";
             btnGlo.UseVisualStyleBackColor = true;
+            btnGlo.Click += btnGlo_Click;
             // 
             // btnQui
             // 
@@ -519,6 +494,26 @@
             label8.TabIndex = 17;
             label8.Text = "Manage Your Account";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(27, 79);
+            label1.Name = "label1";
+            label1.Size = new Size(84, 21);
+            label1.TabIndex = 19;
+            label1.Text = "Full Name:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(27, 105);
+            label3.Name = "label3";
+            label3.Size = new Size(35, 21);
+            label3.TabIndex = 20;
+            label3.Text = "Bio:";
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -543,7 +538,6 @@
             panelNotification.PerformLayout();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -572,14 +566,12 @@
         private Label label5;
         private Panel panel1;
         private PictureBox pictureBox9;
-        private PictureBox pictureBox8;
         private PictureBox pictureBox7;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private PictureBox pictureBox10;
         private Button button7;
-        private Button btnProg;
         private Button btnSched;
         private Button btnGlo;
         private Button btnQui;
@@ -594,5 +586,7 @@
         private Button btnStudy;
         private Label lblFullName;
         private Label lblBio;
+        private Label label1;
+        private Label label3;
     }
 }
