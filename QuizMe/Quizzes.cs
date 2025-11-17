@@ -15,6 +15,7 @@ namespace QuizMe_
     public partial class Quizzes : Form
     {
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
+
         public Quizzes()
         {
             InitializeComponent();
@@ -24,8 +25,56 @@ namespace QuizMe_
             DeleteExpiredScheduledQuizzes();
             LoadAvailableQuizzes();
             LoadRecentActivities();
+            CheckForScheduledQuizzes();
         }
+        private void CheckForScheduledQuizzes()
+        {
+            int dueQuizzes = 0;
 
+            // --- MODIFIED QUERY ---
+            // We select quizzes that are scheduled anytime between now and 5 minutes from now
+            // (or are already past due).
+            string query = @"SELECT COUNT(*) 
+                             FROM Quizzes 
+                             WHERE UserID = @UserID 
+                               AND ScheduledDate IS NOT NULL 
+                               AND ScheduledDate <= @due_time";
+
+            // --- MODIFIED TIME ---
+            // Set the target time to 5 minutes from now.
+            DateTime dueTime = DateTime.Now.AddMinutes(5);
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", QuizMe_.SignIn.staticUserID);
+
+                        // --- MODIFIED PARAMETER ---
+                        cmd.Parameters.AddWithValue("@due_time", dueTime);
+
+                        con.Open();
+                        dueQuizzes = (int)cmd.ExecuteScalar();
+                    }
+                }
+
+                if (dueQuizzes > 0)
+                {
+                    // --- MODIFIED MESSAGE ---
+                    MessageBox.Show($"You have {dueQuizzes} quiz(zes) scheduled to take in the next 5 minutes!",
+                                    "Quiz Reminder",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Optional: Show an error if the check fails
+                // MessageBox.Show("Error checking for scheduled quizzes: " + ex.Message);
+            }
+        }
         private void button7_Click(object sender, EventArgs e)
         {
             Settings settings = new Settings();
@@ -34,14 +83,7 @@ namespace QuizMe_
             settings.Show();
         }
 
-        private void progressButton_Click(object sender, EventArgs e)
-        {
-            Progress progress = new Progress();
-            this.Hide();
-
-
-            progress.Show();
-        }
+       
 
         private void scheduleButton_Click(object sender, EventArgs e)
         {
@@ -52,7 +94,9 @@ namespace QuizMe_
 
         private void glossaryButton_Click(object sender, EventArgs e)
         {
-
+            GlossaryForm glossaryForm = new GlossaryForm();
+            this.Hide();
+            glossaryForm.Show();
         }
 
         private void quizzesButton_Click(object sender, EventArgs e)

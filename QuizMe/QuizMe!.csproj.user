@@ -16,13 +16,13 @@
     <Compile Update="Flashcards.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GlossaryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="LandingPage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="PdfViewForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Progress.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="QuizTakerForm.cs">

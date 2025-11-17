@@ -31,9 +31,7 @@ namespace QuizMe_
 
         private void btnProg_Click(object sender, EventArgs e)
         {
-            Progress progress = new Progress();
-            this.Hide();
-            progress.Show();
+            
 
         }
 
@@ -77,8 +75,7 @@ namespace QuizMe_
         {
             LoadUserSettings();
 
-            // 2. Check for notifications
-            CheckForScheduledItems();
+           
         }
         private void LoadUserSettings()
         {
@@ -151,61 +148,7 @@ namespace QuizMe_
                 MessageBox.Show("Error saving changes: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void CheckForScheduledItems()
-        {
-            // Only run this if the user has push notifications enabled
-            if (!chkPushNotifications.Checked)
-            {
-                return;
-            }
-
-            int flashcardCount = 0;
-            int quizCount = 0;
-
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    con.Open();
-
-                    // 1. Count scheduled flashcards for today
-                    string flashcardQuery = "SELECT COUNT(*) FROM Flashcards WHERE user_id = @UserID AND CAST(schedule_date AS DATE) = CAST(GETDATE() AS DATE)";
-                    using (SqlCommand cmd = new SqlCommand(flashcardQuery, con))
-                    {
-                        cmd.Parameters.AddWithValue("@UserID", QuizMe_.SignIn.staticUserID);
-                        flashcardCount = (int)cmd.ExecuteScalar();
-                    }
-
-                    // 2. Count scheduled quizzes for today
-                    string quizQuery = "SELECT COUNT(*) FROM Quizzes WHERE UserID = @UserID AND CAST(ScheduledDate AS DATE) = CAST(GETDATE() AS DATE)";
-                    using (SqlCommand cmd = new SqlCommand(quizQuery, con))
-                    {
-                        cmd.Parameters.AddWithValue("@UserID", QuizMe_.SignIn.staticUserID);
-                        quizCount = (int)cmd.ExecuteScalar();
-                    }
-                }
-
-                // 3. Build and show the notification message
-                if (flashcardCount > 0 || quizCount > 0)
-                {
-                    string message = "You have items scheduled for today!\n";
-                    if (flashcardCount > 0)
-                    {
-                        message += $"\n• {flashcardCount} Flashcard(s)";
-                    }
-                    if (quizCount > 0)
-                    {
-                        message += $"\n• {quizCount} Quiz(zes)";
-                    }
-                    MessageBox.Show(message, "Schedule Reminder", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Show a non-critical error if the check fails
-                Console.WriteLine("Failed to check for notifications: " + ex.Message);
-            }
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -248,6 +191,13 @@ namespace QuizMe_
             {
                 form.Close();
             }
+        }
+
+        private void btnGlo_Click(object sender, EventArgs e)
+        {
+            GlossaryForm glossaryForm = new GlossaryForm();
+            this.Hide();
+            glossaryForm.Show();
         }
     }
 

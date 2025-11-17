@@ -23,12 +23,14 @@ namespace QuizMe_
         {
             InitializeComponent();
             LoadStudySets();
+            InitializeScheduleCheckBox();
         }
         public CreateFlashcard(int studySetID)
         {
             InitializeComponent();
             _preselectedStudySetID = studySetID; // Store the passed-in ID
             LoadStudySets(); // Load the sets
+            InitializeScheduleCheckBox();
         }
         private class StudySetItem
         {
@@ -38,6 +40,15 @@ namespace QuizMe_
             {
                 return Title;
             }
+        }
+        private void InitializeScheduleCheckBox()
+        {
+            // Set initial state
+            chkEnableSchedule.Checked = false;
+            dtpScheduleDate.Enabled = false;
+
+            // Wire up the event handler
+            chkEnableSchedule.CheckedChanged += chkEnableSchedule_CheckedChanged;
         }
 
         // --- FIX #1 IS IN THIS METHOD ---
@@ -134,7 +145,21 @@ namespace QuizMe_
                     cmd.Parameters.AddWithValue("@user_id", QuizMe_.SignIn.staticUserID);
                     cmd.Parameters.AddWithValue("@question", txtQuestion.Text);
                     cmd.Parameters.AddWithValue("@answer", txtAnswer.Text);
-                    cmd.Parameters.AddWithValue("@schedule_date", dtpScheduleDate.Value);
+
+                    // --- THIS IS THE FIX ---
+                    // Check if the schedule checkbox is checked
+                    if (chkEnableSchedule.Checked)
+                    {
+                        // If yes, save the date from the DateTimePicker
+                        cmd.Parameters.AddWithValue("@schedule_date", dtpScheduleDate.Value);
+                    }
+                    else
+                    {
+                        // If no, save NULL to the database
+                        cmd.Parameters.AddWithValue("@schedule_date", DBNull.Value);
+                    }
+                    // --- END OF FIX ---
+
 
                     StudySetItem selectedSet = (StudySetItem)cmbStudySets.SelectedItem;
 
@@ -165,6 +190,11 @@ namespace QuizMe_
                 txtQuestion.Clear();
                 txtAnswer.Clear();
                 dtpScheduleDate.Value = DateTime.Now;
+
+                // --- FIX ---
+                // Also reset your new checkbox
+                chkEnableSchedule.Checked = false;
+
                 cmbStudySets.SelectedIndex = 0;
             }
             catch (Exception ex)
@@ -178,6 +208,16 @@ namespace QuizMe_
                     con.Close();
                 }
             }
+        }
+
+        private void CreateFlashcard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkEnableSchedule_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpScheduleDate.Enabled = chkEnableSchedule.Checked;
         }
     }
 }

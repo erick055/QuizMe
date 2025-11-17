@@ -36,12 +36,14 @@
             txtQuizDescription = new TextBox();
             btnCancel = new Button();
             dtpScheduledDate = new DateTimePicker();
+            chkEnableSchedule = new CheckBox();
+            label4 = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(118, 27);
+            label1.Location = new Point(122, 40);
             label1.Name = "label1";
             label1.Size = new Size(95, 15);
             label1.TabIndex = 0;
@@ -110,11 +112,31 @@
             dtpScheduledDate.TabIndex = 8;
             dtpScheduledDate.Value = new DateTime(2025, 11, 15, 9, 46, 0, 0);
             // 
+            // chkEnableSchedule
+            // 
+            chkEnableSchedule.AutoSize = true;
+            chkEnableSchedule.Location = new Point(171, 286);
+            chkEnableSchedule.Name = "chkEnableSchedule";
+            chkEnableSchedule.Size = new Size(15, 14);
+            chkEnableSchedule.TabIndex = 9;
+            chkEnableSchedule.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(80, 285);
+            label4.Name = "label4";
+            label4.Size = new Size(85, 15);
+            label4.TabIndex = 10;
+            label4.Text = "Schedule Quiz:";
+            // 
             // CreateQuizForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(370, 462);
+            Controls.Add(label4);
+            Controls.Add(chkEnableSchedule);
             Controls.Add(dtpScheduledDate);
             Controls.Add(btnCancel);
             Controls.Add(txtQuizDescription);
@@ -140,5 +162,7 @@
         private TextBox txtQuizDescription;
         private Button btnCancel;
         private DateTimePicker dtpScheduledDate;
+        private CheckBox chkEnableSchedule;
+        private Label label4;
     }
 }

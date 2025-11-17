@@ -209,9 +209,7 @@ namespace QuizMe_
 
         private void btnProg_Click(object sender, EventArgs e)
         {
-            Progress progress = new Progress();
-            this.Hide();
-            progress.Show();
+           
         }
 
         private void btnSched_Click(object sender, EventArgs e)
@@ -233,6 +231,13 @@ namespace QuizMe_
             Flashcards flashcards = new Flashcards();
             this.Hide();
             flashcards.Show();
+        }
+
+        private void btnGlo_Click(object sender, EventArgs e)
+        {
+            GlossaryForm glossaryForm = new GlossaryForm();
+            this.Hide();
+            glossaryForm.Show();
         }
     }
 }

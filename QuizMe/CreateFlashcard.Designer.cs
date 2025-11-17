@@ -37,6 +37,8 @@
             dtpScheduleDate = new DateTimePicker();
             label3 = new Label();
             cmbStudySets = new ComboBox();
+            chkEnableSchedule = new CheckBox();
+            label4 = new Label();
             SuspendLayout();
             // 
             // txtQuestion
@@ -106,11 +108,11 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(78, 404);
+            label3.Location = new Point(77, 407);
             label3.Name = "label3";
-            label3.Size = new Size(78, 15);
+            label3.Size = new Size(111, 15);
             label3.TabIndex = 7;
-            label3.Text = "Schedule For:";
+            label3.Text = "Schedule Flashcard:";
             // 
             // cmbStudySets
             // 
@@ -121,11 +123,32 @@
             cmbStudySets.TabIndex = 8;
             cmbStudySets.Text = "Select Study Set (Optional)";
             // 
+            // chkEnableSchedule
+            // 
+            chkEnableSchedule.AutoSize = true;
+            chkEnableSchedule.Location = new Point(191, 408);
+            chkEnableSchedule.Name = "chkEnableSchedule";
+            chkEnableSchedule.Size = new Size(15, 14);
+            chkEnableSchedule.TabIndex = 9;
+            chkEnableSchedule.UseVisualStyleBackColor = true;
+            chkEnableSchedule.CheckedChanged += chkEnableSchedule_CheckedChanged;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(120, 20);
+            label4.Name = "label4";
+            label4.Size = new Size(94, 15);
+            label4.TabIndex = 10;
+            label4.Text = "Create Flashcard";
+            // 
             // CreateFlashcard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(362, 526);
+            Controls.Add(label4);
+            Controls.Add(chkEnableSchedule);
             Controls.Add(cmbStudySets);
             Controls.Add(label3);
             Controls.Add(dtpScheduleDate);
@@ -137,6 +160,7 @@
             Controls.Add(txtQuestion);
             Name = "CreateFlashcard";
             Text = "CreateFlashcard";
+            Load += CreateFlashcard_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,5 +176,7 @@
         private DateTimePicker dtpScheduleDate;
         private Label label3;
         private ComboBox cmbStudySets;
+        private CheckBox chkEnableSchedule;
+        private Label label4;
     }
 }

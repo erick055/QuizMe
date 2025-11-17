@@ -16,6 +16,7 @@ namespace QuizMe_
     {
         // Your existing connection string
         SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;");
+        private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
 
         private List<Flashcard> allFlashcards = new List<Flashcard>();
         private int currentCardIndex = 0;
@@ -65,8 +66,57 @@ namespace QuizMe_
             }
 
             DisplayCurrentCard();
+            CheckForScheduledFlashcards();
         }
+        private void CheckForScheduledFlashcards()
+        {
+            int dueFlashcards = 0;
 
+            // --- MODIFIED QUERY ---
+            // We select cards that are due anytime between now and 5 minutes from now,
+            // (or are already past due) and have a Status of 0 (pending).
+            string query = @"SELECT COUNT(*) 
+                             FROM Flashcards 
+                             WHERE user_id = @user_id 
+                               AND schedule_date IS NOT NULL 
+                               AND schedule_date <= @due_time
+                               AND Status = 0";
+
+            // --- MODIFIED TIME ---
+            // Set the target time to 5 minutes from now.
+            DateTime dueTime = DateTime.Now.AddMinutes(5);
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@user_id", QuizMe_.SignIn.staticUserID);
+
+                        // --- MODIFIED PARAMETER ---
+                        cmd.Parameters.AddWithValue("@due_time", dueTime);
+
+                        con.Open();
+                        dueFlashcards = (int)cmd.ExecuteScalar();
+                    }
+                }
+
+                if (dueFlashcards > 0)
+                {
+                    // --- MODIFIED MESSAGE ---
+                    MessageBox.Show($"You have {dueFlashcards} flashcard(s) due for review in the next 5 minutes!",
+                                    "Flashcard Reminder",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Optional: Show an error if the check fails
+                // MessageBox.Show("Error checking for scheduled flashcards: " + ex.Message);
+            }
+        }
         // --- THIS METHOD IS NOW FULLY UPDATED ---
         private void LoadFlashcardsFromDB()
         {
@@ -338,9 +388,7 @@ namespace QuizMe_
 
         private void btnProg_Click(object sender, EventArgs e)
         {
-            Progress progress = new Progress();
-            this.Hide();
-            progress.Show();
+           
         }
 
         private void btnSched_Click(object sender, EventArgs e)
@@ -454,6 +502,13 @@ namespace QuizMe_
             StudySets studySets = new StudySets();
             this.Hide();
             studySets.Show();
+        }
+
+        private void btnGlo_Click(object sender, EventArgs e)
+        {
+            GlossaryForm glossaryForm = new GlossaryForm();
+            this.Hide();
+            glossaryForm.Show();
         }
     }
 }
