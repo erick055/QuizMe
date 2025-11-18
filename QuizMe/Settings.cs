@@ -84,7 +84,7 @@ namespace QuizMe_
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    // Query to get all the new settings
+                    
                     string query = "SELECT Username, FullName, Bio, PushNotificationsEnabled, SoundEffectsEnabled FROM Users WHERE UserID = @UserID";
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
@@ -94,14 +94,14 @@ namespace QuizMe_
 
                         if (reader.Read())
                         {
-                            // Set the label text to the user's registered name
+                            
                             lblUsername.Text = reader["Username"].ToString();
 
-                            // Load the FullName, Bio, and checkbox settings
+                            
                             lblFullName.Text = reader["FullName"] == DBNull.Value ? "" : reader["FullName"].ToString();
                             lblBio.Text = reader["Bio"] == DBNull.Value ? "" : reader["Bio"].ToString();
 
-                            // Use default 'false' if the database value is NULL
+                            
                             chkPushNotifications.Checked = reader["PushNotificationsEnabled"] == DBNull.Value ? false : (bool)reader["PushNotificationsEnabled"];
                             chkSoundEffects.Checked = reader["SoundEffectsEnabled"] == DBNull.Value ? false : (bool)reader["SoundEffectsEnabled"];
                         }
@@ -121,7 +121,7 @@ namespace QuizMe_
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    // Query to update all the new fields
+                    
                     string query = @"UPDATE Users 
                                      SET FullName = @FullName, 
                                          Bio = @Bio, 
@@ -131,7 +131,7 @@ namespace QuizMe_
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        // Add parameters (using DBNull.Value for empty text boxes)
+                        
                         cmd.Parameters.AddWithValue("@FullName", string.IsNullOrWhiteSpace(txtFullName.Text) ? (object)DBNull.Value : txtFullName.Text);
                         cmd.Parameters.AddWithValue("@Bio", string.IsNullOrWhiteSpace(txtBio.Text) ? (object)DBNull.Value : txtBio.Text);
                         cmd.Parameters.AddWithValue("@PushNotifications", chkPushNotifications.Checked);
@@ -162,19 +162,19 @@ namespace QuizMe_
                 }
             }
 
-            // 2. Show the SignIn form.
+            
             if (signInForm != null)
             {
                 signInForm.Show();
             }
             else
             {
-                // As a fallback, if it was somehow closed, create a new one.
+                
                 SignIn newSignIn = new SignIn();
                 newSignIn.Show();
             }
 
-            // 3. Make a list of all forms to close (everything that is NOT SignIn)
+           
             List<Form> formsToClose = new List<Form>();
             foreach (Form form in Application.OpenForms)
             {
@@ -184,9 +184,7 @@ namespace QuizMe_
                 }
             }
 
-            // 4. Now, loop through the new list and close them.
-            // This will close the current form (Settings) and all other hidden forms
-            // (Dashboard, Quizzes, etc.).
+            
             foreach (Form form in formsToClose)
             {
                 form.Close();

@@ -6,7 +6,7 @@ namespace QuizMe_
 {
     public partial class SignUp : Form
     {
-        // Connection string to your database
+       
         private string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
 
         public SignUp()
@@ -14,7 +14,7 @@ namespace QuizMe_
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e) // Note: Your button seems to be named btnLogin
+        private void btnLogin_Click(object sender, EventArgs e) 
         {
             string username = txtUsername.Text;
             string password = txtPassword.Text;
@@ -32,24 +32,24 @@ namespace QuizMe_
                 return;
             }
 
-            // --- Database Logic ---
+           
             try
             {
-                // 1. Hash the password
+                
                 string passwordHash = PasswordHelper.HashPassword(password);
 
-                // 2. Create SQL connection and command
+                
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
                     string query = "INSERT INTO Users (Username, PasswordHash) VALUES (@Username, @PasswordHash)";
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        // 3. Add parameters to prevent SQL injection
+                        
                         cmd.Parameters.AddWithValue("@Username", username);
                         cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
 
-                        // 4. Execute the command
+                   
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -62,8 +62,8 @@ namespace QuizMe_
             }
             catch (SqlException ex)
             {
-                // Handle errors, like a duplicate username
-                if (ex.Number == 2627 || ex.Number == 2601) // Unique constraint violation
+              
+                if (ex.Number == 2627 || ex.Number == 2601) 
                 {
                     MessageBox.Show("This username is already taken. Please choose another.");
                 }

@@ -7,19 +7,19 @@ namespace QuizMe_
     public partial class AddQuestionsForm : Form
     {
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
-        private int _quizID; // This stores the quiz we are adding to
+        private int _quizID; 
 
-        // This new constructor *requires* a QuizID
+        
         public AddQuestionsForm(int quizID)
         {
             InitializeComponent();
             _quizID = quizID;
-            this.Text = "Add Questions to Quiz"; // Set the window title
+            this.Text = "Add Questions to Quiz"; 
         }
 
         private void btnSaveQuestion_Click(object sender, EventArgs e)
         {
-            // Validation
+            
             if (string.IsNullOrWhiteSpace(txtQuestion.Text) ||
                 string.IsNullOrWhiteSpace(txtOptionA.Text) || string.IsNullOrWhiteSpace(txtOptionB.Text) ||
                 string.IsNullOrWhiteSpace(txtOptionC.Text) || string.IsNullOrWhiteSpace(txtOptionD.Text) ||
@@ -45,7 +45,7 @@ namespace QuizMe_
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        cmd.Parameters.AddWithValue("@QuizID", _quizID); // Use the ID
+                        cmd.Parameters.AddWithValue("@QuizID", _quizID); 
                         cmd.Parameters.AddWithValue("@Question", txtQuestion.Text);
                         cmd.Parameters.AddWithValue("@A", txtOptionA.Text);
                         cmd.Parameters.AddWithValue("@B", txtOptionB.Text);
@@ -58,7 +58,7 @@ namespace QuizMe_
 
                 MessageBox.Show("Question saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Clear text boxes for the next question
+                
                 txtQuestion.Clear();
                 txtOptionA.Clear();
                 txtOptionB.Clear();
@@ -75,7 +75,7 @@ namespace QuizMe_
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            this.Close(); // Just close the form
+            this.Close(); 
         }
     }
 }

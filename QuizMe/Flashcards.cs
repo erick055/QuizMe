@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq; // Make sure this 'using' is at the top
+using System.Linq; 
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +14,7 @@ namespace QuizMe_
 {
     public partial class Flashcards : Form
     {
-        // Your existing connection string
+       
         SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;");
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
 
@@ -22,23 +22,23 @@ namespace QuizMe_
         private int currentCardIndex = 0;
         private DateTime? _filterDate = null;
 
-        // This will hold the ID of the set we are studying
+       
         private int? _studySetID = null;
 
-        // --- CONSTRUCTOR 1: For Dashboard/Buttons ---
+        
         public Flashcards()
         {
             InitializeComponent();
         }
 
-        // --- CONSTRUCTOR 2: For Schedule ---
+      
         public Flashcards(DateTime filterDate)
         {
             InitializeComponent();
             _filterDate = filterDate.Date;
         }
 
-        // --- CONSTRUCTOR 3: For Study Sets ---
+      
         public Flashcards(int studySetID)
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace QuizMe_
 
         private void Flashcards_Load(object sender, EventArgs e)
         {
-            // Only delete expired cards if we are in "general" mode
+          
             if (!_studySetID.HasValue)
             {
                 DeleteExpiredFlashcards();
@@ -58,7 +58,7 @@ namespace QuizMe_
 
             LoadFlashcardsFromDB();
 
-            // Shuffle the cards for a better study session
+
             if (allFlashcards.Count > 0)
             {
                 var rnd = new Random();
@@ -72,9 +72,6 @@ namespace QuizMe_
         {
             int dueFlashcards = 0;
 
-            // --- MODIFIED QUERY ---
-            // We select cards that are due anytime between now and 5 minutes from now,
-            // (or are already past due) and have a Status of 0 (pending).
             string query = @"SELECT COUNT(*) 
                              FROM Flashcards 
                              WHERE user_id = @user_id 
@@ -82,8 +79,7 @@ namespace QuizMe_
                                AND schedule_date <= @due_time
                                AND Status = 0";
 
-            // --- MODIFIED TIME ---
-            // Set the target time to 5 minutes from now.
+
             DateTime dueTime = DateTime.Now.AddMinutes(5);
 
             try
@@ -94,7 +90,7 @@ namespace QuizMe_
                     {
                         cmd.Parameters.AddWithValue("@user_id", QuizMe_.SignIn.staticUserID);
 
-                        // --- MODIFIED PARAMETER ---
+
                         cmd.Parameters.AddWithValue("@due_time", dueTime);
 
                         con.Open();
@@ -104,7 +100,7 @@ namespace QuizMe_
 
                 if (dueFlashcards > 0)
                 {
-                    // --- MODIFIED MESSAGE ---
+
                     MessageBox.Show($"You have {dueFlashcards} flashcard(s) due for review in the next 5 minutes!",
                                     "Flashcard Reminder",
                                     MessageBoxButtons.OK,
@@ -117,7 +113,7 @@ namespace QuizMe_
                 // MessageBox.Show("Error checking for scheduled flashcards: " + ex.Message);
             }
         }
-        // --- THIS METHOD IS NOW FULLY UPDATED ---
+  
         private void LoadFlashcardsFromDB()
         {
             allFlashcards.Clear();
@@ -125,32 +121,32 @@ namespace QuizMe_
             {
                 con.Open();
 
-                // We add the 'Status' column to the query
+
                 string query = "SELECT flashcard_id, question, answer, schedule_date, Status FROM Flashcards WHERE user_id = @user_id";
 
-                // --- NEW LOGIC ---
+
                 if (_studySetID.HasValue)
                 {
-                    // 1. If we are studying a set, load ONLY that set's cards
+
                     query += " AND StudySetID = @StudySetID";
                 }
                 else if (_filterDate.HasValue)
                 {
-                    // 2. This is your existing logic for the schedule
+
                     query += " AND CAST(schedule_date AS DATE) = @schedule_date_filter";
                 }
                 else
                 {
-                    // 3. If no set AND no date, load "general" cards (those not in any set)
+
                     query += " AND StudySetID IS NULL";
                 }
-                // --- END OF NEW LOGIC ---
+
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@user_id", QuizMe_.SignIn.staticUserID);
 
-                    // --- NEW LOGIC ---
+
                     if (_studySetID.HasValue)
                     {
                         cmd.Parameters.AddWithValue("@StudySetID", _studySetID.Value);
@@ -159,7 +155,7 @@ namespace QuizMe_
                     {
                         cmd.Parameters.AddWithValue("@schedule_date_filter", _filterDate.Value);
                     }
-                    // --- END OF NEW LOGIC ---
+
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -173,9 +169,7 @@ namespace QuizMe_
                                 ScheduleDate = reader["schedule_date"] == DBNull.Value
                                             ? (DateTime?)null
                                             : Convert.ToDateTime(reader["schedule_date"]),
-
-                                // Add the new Status property
-                                Status = Convert.ToInt32(reader["Status"])
+                       Status = Convert.ToInt32(reader["Status"])
                             });
                         }
                     }
@@ -194,7 +188,7 @@ namespace QuizMe_
             }
         }
 
-        // --- THIS METHOD CONTAINS FIX #1 ---
+
         private void DeleteExpiredFlashcards()
         {
             using (SqlConnection deleteCon = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;"))
@@ -203,8 +197,7 @@ namespace QuizMe_
                 {
                     deleteCon.Open();
 
-                    // --- THIS IS THE CORRECTED QUERY ---
-                    // We compare the full schedule_date (including time) to the current full time (GETDATE())
+
                     string query = "DELETE FROM Flashcards WHERE user_id = @user_id AND schedule_date < GETDATE()";
 
                     using (SqlCommand cmd = new SqlCommand(query, deleteCon))
@@ -220,13 +213,13 @@ namespace QuizMe_
             }
         }
 
-        // --- THIS METHOD IS NOW FULLY UPDATED ---
+
         private void DisplayCurrentCard()
         {
-            // Check if we still have cards to study
+
             if (allFlashcards.Count > 0 && currentCardIndex < allFlashcards.Count)
             {
-                // Safety check
+ 
                 if (currentCardIndex >= allFlashcards.Count)
                 {
                     currentCardIndex = allFlashcards.Count - 1;
@@ -252,7 +245,7 @@ namespace QuizMe_
             }
             else
             {
-                // --- MODIFIED "DECK COMPLETE" MESSAGE ---
+
                 if (_studySetID.HasValue)
                 {
                     lblQuestion.Text = "Study session complete! You can close this form.";
@@ -272,43 +265,43 @@ namespace QuizMe_
                 lblCardNo.Text = "card 0 of 0";
                 lblScheduledIdentifier.Visible = false;
 
-                // Disable buttons when the deck is empty
+
                 btnKnew.Enabled = false;
                 btnDontKnow.Enabled = false;
             }
         }
 
-        // --- This REPLACES 'prevBtn_Click' ---
+
         private void btnDontKnow_Click(object sender, EventArgs e)
         {
             if (allFlashcards.Count == 0 || currentCardIndex >= allFlashcards.Count) return;
 
-            // Update status in DB to 1 (Learning)
+
             UpdateCardStatus(allFlashcards[currentCardIndex].FlashcardId, 1);
             allFlashcards[currentCardIndex].Status = 1;
 
-            // Move this card to the end of the list to see it again
+
             Flashcard cardToReview = allFlashcards[currentCardIndex];
             allFlashcards.RemoveAt(currentCardIndex);
             allFlashcards.Add(cardToReview);
 
-            // Display the next card (which is at the same index)
+
             DisplayCurrentCard();
         }
 
-        // --- This REPLACES 'nextBtn_Click' ---
+
         private void btnKnew_Click(object sender, EventArgs e)
         {
             if (allFlashcards.Count == 0 || currentCardIndex >= allFlashcards.Count) return;
 
-            // Update status in DB to 2 (Known)
-            UpdateCardStatus(allFlashcards[currentCardIndex].FlashcardId, 2);
-            allFlashcards[currentCardIndex].Status = 2; // Update local list
 
-            // Move to the next card
+            UpdateCardStatus(allFlashcards[currentCardIndex].FlashcardId, 2);
+            allFlashcards[currentCardIndex].Status = 2;
+
+
             currentCardIndex++;
 
-            // If we are in a study set, update the progress bar
+
             if (_studySetID.HasValue)
             {
                 UpdateStudySetProgress();
@@ -317,7 +310,7 @@ namespace QuizMe_
             DisplayCurrentCard();
         }
 
-        // --- NEW METHOD ---
+
         private void UpdateCardStatus(int flashcardId, int status)
         {
             try
@@ -341,24 +334,24 @@ namespace QuizMe_
             }
         }
 
-        // --- NEW METHOD ---
+
         private void UpdateStudySetProgress()
         {
             if (!_studySetID.HasValue) return;
 
             try
             {
-                // 1. Calculate progress from our local list
+
                 int totalCards = allFlashcards.Count;
                 if (totalCards == 0) return;
 
-                // Count all cards that are marked as "Known" (Status = 2)
+           
                 int knownCards = allFlashcards.Count(c => c.Status == 2);
 
-                // 2. Calculate percentage
+
                 int progress = (int)(((double)knownCards / totalCards) * 100);
 
-                // 3. Update the StudySets table in the database
+
                 using (SqlConnection progressCon = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;"))
                 {
                     string query = "UPDATE StudySets SET Progress = @Progress WHERE StudySetID = @StudySetID AND UserID = @UserID";
@@ -378,7 +371,7 @@ namespace QuizMe_
             }
         }
 
-        // --- Your existing navigation buttons ---
+
         private void btnSet_Click(object sender, EventArgs e)
         {
             Settings settings = new Settings();
@@ -407,7 +400,7 @@ namespace QuizMe_
 
         private void btnFla_Click(object sender, EventArgs e)
         {
-            // Already here
+
         }
 
         private void btnDash_Click(object sender, EventArgs e)
@@ -423,13 +416,12 @@ namespace QuizMe_
 
             if (_studySetID.HasValue)
             {
-                // --- NEW ---
-                // If we are in "study mode", pass the active Study Set ID
+
                 createFlashcard = new CreateFlashcard(_studySetID.Value);
             }
             else
             {
-                // This is the normal behavior
+
                 createFlashcard = new CreateFlashcard();
             }
 
@@ -443,7 +435,7 @@ namespace QuizMe_
             lblSeeAnswer.Visible = false;
         }
 
-        // This is your existing delete button
+
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (allFlashcards.Count == 0)
@@ -479,13 +471,13 @@ namespace QuizMe_
             }
         }
 
-        // This is your existing (but unused?) button
+
         private void button11_Click(object sender, EventArgs e)
         {
             lblAnswer.Text = "";
         }
 
-        // --- THIS CLASS IS NOW UPDATED ---
+
         public class Flashcard
         {
             public int FlashcardId { get; set; }
@@ -493,8 +485,8 @@ namespace QuizMe_
             public string Answer { get; set; }
             public DateTime? ScheduleDate { get; set; }
 
-            // Add the new Status property
-            public int Status { get; set; } // 0=New, 1=Learning, 2=Known
+
+            public int Status { get; set; } 
         }
 
         private void btnStudy_Click(object sender, EventArgs e)

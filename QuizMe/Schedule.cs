@@ -12,16 +12,14 @@ namespace QuizMe_
         int month, year;
         SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;");
 
-        // --- CHANGED (Step 1) ---
-        // We create a helper class to store a
+     
         private class ScheduledEvent
         {
             public DateTime EventTime { get; set; }
-            public string EventType { get; set; } // "Flashcard" or "Quiz"
+            public string EventType { get; set; } 
         }
 
-        // --- CHANGED (Step 2) ---
-        // The dictionary now stores the new ScheduledEvent object
+        
         Dictionary<DateTime, List<ScheduledEvent>> scheduledEvents = new Dictionary<DateTime, List<ScheduledEvent>>();
 
 
@@ -36,8 +34,7 @@ namespace QuizMe_
         }
 
 
-        // --- CHANGED (Step 3) ---
-        // This method is updated to be simpler and store the event type.
+       
         private void LoadScheduledDates(int year, int month)
         {
             scheduledEvents.Clear();
@@ -45,7 +42,7 @@ namespace QuizMe_
             {
                 con.Open();
 
-                // This query gets ALL events, their times, and their types
+               
                 string query = @"
             SELECT CAST(schedule_date AS DATE) as schedule_day, schedule_date as event_time, 'Flashcard' as event_type
             FROM Flashcards 
@@ -73,13 +70,13 @@ namespace QuizMe_
                             DateTime eventTime = Convert.ToDateTime(reader["event_time"]);
                             string eventType = reader["event_type"].ToString();
 
-                            // If this is the first event for this day, create the list
+                           
                             if (!scheduledEvents.ContainsKey(day))
                             {
                                 scheduledEvents[day] = new List<ScheduledEvent>();
                             }
 
-                            // Add this event to this day's list
+                   
                             scheduledEvents[day].Add(new ScheduledEvent { EventTime = eventTime, EventType = eventType });
                         }
                     }
@@ -99,8 +96,7 @@ namespace QuizMe_
         }
 
 
-        // --- CHANGED (Step 4) ---
-        // Updated to use the new scheduledEvents dictionary
+        
         private void displayDays()
         {
             flpDayContainer.Controls.Clear();
@@ -131,22 +127,22 @@ namespace QuizMe_
 
                 DateTime currentDay = new DateTime(year, month, i);
                 ucDays.Tag = currentDay;
-                ucDays.ClearEvents(); // <-- Call our new reset method
+                ucDays.ClearEvents(); 
 
-                // Check if this day has any events in the dictionary
+
                 if (scheduledEvents.ContainsKey(currentDay.Date))
                 {
-                    // Get the list of all events for this day
+       
                     List<ScheduledEvent> eventsToday = scheduledEvents[currentDay.Date];
 
-                    // Find the first flashcard event (if any)
+              
                     var flashcardEvent = eventsToday.FirstOrDefault(e => e.EventType == "Flashcard");
                     if (flashcardEvent != null)
                     {
                         ucDays.SetFlashcardEvent(flashcardEvent.EventTime.ToString("hh:mm tt"));
                     }
 
-                    // Find the first quiz event (if any)
+            
                     var quizEvent = eventsToday.FirstOrDefault(e => e.EventType == "Quiz");
                     if (quizEvent != null)
                     {
@@ -159,38 +155,37 @@ namespace QuizMe_
             }
         }
 
-        // --- CHANGED (Step 5) ---
-        // This click event now correctly opens the Flashcard or Quiz form
+       
         private void UcDays_Click(object sender, EventArgs e)
         {
             UserControlDays ucDay = (UserControlDays)sender;
             DateTime clickedDate = ((DateTime)ucDay.Tag).Date;
 
-            // Check if this date has any events
+     
             if (scheduledEvents.ContainsKey(clickedDate))
             {
                 List<ScheduledEvent> eventsToday = scheduledEvents[clickedDate];
 
-                // Get the unique types of events
+          
                 var eventTypes = eventsToday.Select(ev => ev.EventType).Distinct().ToList();
 
-                // Case 1: Both "Flashcard" and "Quiz"
+   
                 if (eventTypes.Count > 1)
                 {
                     MessageBox.Show("You have multiple items scheduled. Opening flashcards first.", "Multiple Events", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     Flashcards viewDayCards = new Flashcards(clickedDate);
                     viewDayCards.ShowDialog();
-                    displayDays(); // Refresh calendar
+                    displayDays(); 
                 }
-                // Case 2: Only "Flashcard"
+
                 else if (eventTypes.Contains("Flashcard"))
                 {
                     Flashcards viewDayCards = new Flashcards(clickedDate);
                     viewDayCards.ShowDialog();
-                    displayDays(); // Refresh calendar
+                    displayDays(); 
                 }
-                // Case 3: Only "Quiz"
+         
                 else if (eventTypes.Contains("Quiz"))
                 {
                     Quizzes quizzesForm = new Quizzes();
@@ -198,7 +193,7 @@ namespace QuizMe_
                     quizzesForm.Show();
                 }
             }
-            // else: user clicked an empty day, do nothing
+        
         }
 
 
@@ -246,7 +241,7 @@ namespace QuizMe_
 
         private void btnSched_Click(object sender, EventArgs e)
         {
-            // Already on this form
+
         }
 
         private void btnQui_Click(object sender, EventArgs e)

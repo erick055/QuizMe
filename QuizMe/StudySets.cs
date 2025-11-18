@@ -44,10 +44,10 @@ namespace QuizMe_
             flpStudySets.Controls.Clear();
             string query = "SELECT StudySetID, Title, Subject, Progress FROM StudySets WHERE UserID = @UserID";
 
-            // Use the static user ID from your SignIn class
+            
             int currentUserID = QuizMe_.SignIn.staticUserID;
 
-            using (SqlConnection con = new SqlConnection(connectionString)) // Make sure 'connectionString' is defined in this form
+            using (SqlConnection con = new SqlConnection(connectionString)) 
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -83,18 +83,18 @@ namespace QuizMe_
                         openButton.Tag = reader["StudySetID"];
                         openButton.Click += OpenButton_Click;
 
-                        // --- THIS IS THE NEW BUTTON ---
+                        
                         Button studyButton = new Button();
                         studyButton.Text = "Study Flashcards";
                         studyButton.Location = new Point(270, 62);
-                        studyButton.Tag = reader["StudySetID"]; // Tag it with the ID
-                        studyButton.Click += StudyButton_Click; // Create this new event
-                                                                // --- END OF NEW BUTTON ---
+                        studyButton.Tag = reader["StudySetID"]; 
+                        studyButton.Click += StudyButton_Click; 
+                                                                
 
                         Button deleteButton = new Button();
                         deleteButton.Text = "Delete";
                         deleteButton.BackColor = Color.LightCoral;
-                        deleteButton.Location = new Point(380, 62); // Positioned after the new button
+                        deleteButton.Location = new Point(380, 62); 
                         deleteButton.Tag = reader["StudySetID"];
                         deleteButton.Click += DeleteButton_Click;
 
@@ -102,7 +102,7 @@ namespace QuizMe_
                         setPanel.Controls.Add(subjectLabel);
                         setPanel.Controls.Add(progressBar);
                         setPanel.Controls.Add(openButton);
-                        setPanel.Controls.Add(studyButton); // --- ADD TO PANEL ---
+                        setPanel.Controls.Add(studyButton); 
                         setPanel.Controls.Add(deleteButton);
 
                         flpStudySets.Controls.Add(setPanel);
@@ -115,12 +115,11 @@ namespace QuizMe_
             Button clickedButton = (Button)sender;
             int studySetID = (int)clickedButton.Tag;
 
-            // Open the Flashcards form, passing the ID of the set to study
-            // We will create this new constructor in the next step
+            
             Flashcards flashcardForm = new Flashcards(studySetID);
             this.Hide();
             flashcardForm.Show();
-            // You might want to hide this form: this.Hide();
+            
         }
         private void OpenButton_Click(object sender, EventArgs e)
         {
@@ -133,7 +132,7 @@ namespace QuizMe_
         {
             byte[] pdfData;
 
-            // 1. Get the PDF data from the database
+            
             string query = "SELECT PdfData FROM StudySets WHERE StudySetID = @StudySetID";
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -147,7 +146,7 @@ namespace QuizMe_
 
             if (pdfData != null)
             {
-                // 2. Open the PdfViewForm and pass the data to it
+                
                 PdfViewForm viewForm = new PdfViewForm(pdfData);
                 viewForm.Show();
             }
@@ -157,9 +156,9 @@ namespace QuizMe_
             Button clickedButton = (Button)sender;
 
             int studySetID = (int)clickedButton.Tag;
-            int currentUserID = QuizMe_.SignIn.staticUserID; // Get current user
+            int currentUserID = QuizMe_.SignIn.staticUserID; 
 
-            // 1. Confirm deletion
+            
             DialogResult confirm = MessageBox.Show("Are you sure you want to delete this study set?\n\n",
                 "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -171,7 +170,7 @@ namespace QuizMe_
                     {
                         con.Open();
 
-                        // 2. Set flashcards' StudySetID to NULL (so they aren't deleted)
+                        
                         string queryUpdateFlashcards = "UPDATE Flashcards SET StudySetID = NULL WHERE StudySetID = @StudySetID AND user_id = @UserID";
                         using (SqlCommand cmdUpdate = new SqlCommand(queryUpdateFlashcards, con))
                         {
@@ -180,7 +179,7 @@ namespace QuizMe_
                             cmdUpdate.ExecuteNonQuery();
                         }
 
-                        // 3. Delete the study set
+                        
                         string queryDeleteSet = "DELETE FROM StudySets WHERE StudySetID = @StudySetID AND UserID = @UserID";
                         using (SqlCommand cmdDelete = new SqlCommand(queryDeleteSet, con))
                         {
@@ -190,7 +189,7 @@ namespace QuizMe_
                         }
                     }
 
-                    // 4. Refresh the list
+                    
                     LoadStudySets();
                 }
                 catch (Exception ex)

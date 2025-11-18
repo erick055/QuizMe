@@ -87,10 +87,10 @@ namespace QuizMe_
         }
         private void DashboardName()
         {
-            // Add try...catch for robust error handling
+            
             try
             {
-                // The 'using' block will automatically close the connection
+                
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
@@ -103,7 +103,7 @@ namespace QuizMe_
 
                         if (reader.Read())
                         {
-                            // 1. Assign the username to the label's Text property.
+                            
                             welcomeLabel.Text = "Welcome back, " + reader["Username"].ToString();
 
                             
@@ -113,7 +113,7 @@ namespace QuizMe_
             }
             catch (Exception ex)
             {
-                // Show an error if the name can't be loaded
+                
                 MessageBox.Show("Error loading user name: " + ex.Message);
             }
         }
@@ -128,8 +128,7 @@ namespace QuizMe_
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    // This query calculates the SUM of all scores and all possible questions
-                    // for this user from the QuizResults table.
+                    
                     string query = @"SELECT SUM(Score) AS TotalScore, SUM(TotalQuestions) AS TotalQuestionsPossible 
                                      FROM QuizResults 
                                      WHERE UserID = @UserID";
@@ -141,7 +140,7 @@ namespace QuizMe_
 
                         if (reader.Read())
                         {
-                            // We MUST check for DBNull.Value in case the user hasn't taken any quizzes
+                            
                             if (reader["TotalScore"] != DBNull.Value)
                             {
                                 totalScore = Convert.ToDouble(reader["TotalScore"]);
@@ -154,23 +153,23 @@ namespace QuizMe_
                 string progressText;
                 if (totalQuestions == 0)
                 {
-                    progressText = "N/A"; // Show "N/A" if no quizzes have been taken
+                    progressText = "N/A"; 
                 }
                 else
                 {
-                    // Calculate the overall percentage
+                    
                     double percentage = (totalScore / totalQuestions) * 100;
-                    // Format as a whole number (F0) and add the "%" sign
+                    
                     progressText = percentage.ToString("F0") + "%";
                 }
 
-                // This is the "68%" label in panel9
+                
                 progressPercent.Text = progressText;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Could not load quiz progress: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                progressPercent.Text = "Error"; // Show "Error" on the label if loading fails
+                progressPercent.Text = "Error"; 
             }
         }
     }
