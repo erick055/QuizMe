@@ -28,8 +28,8 @@ namespace QuizMe_
         public CreateFlashcard(int studySetID)
         {
             InitializeComponent();
-            _preselectedStudySetID = studySetID; // Store the passed-in ID
-            LoadStudySets(); // Load the sets
+            _preselectedStudySetID = studySetID; 
+            LoadStudySets(); 
             InitializeScheduleCheckBox();
         }
         private class StudySetItem
@@ -43,20 +43,20 @@ namespace QuizMe_
         }
         private void InitializeScheduleCheckBox()
         {
-            // Set initial state
+            
             chkEnableSchedule.Checked = false;
             dtpScheduleDate.Enabled = false;
 
-            // Wire up the event handler
+            
             chkEnableSchedule.CheckedChanged += chkEnableSchedule_CheckedChanged;
         }
 
-        // --- FIX #1 IS IN THIS METHOD ---
+       
         private void LoadStudySets()
         {
             try
             {
-                // (All your existing code to load 'studySets' from the database...)
+               
                 cmbStudySets.DataSource = null;
                 studySets.Clear();
                 studySets.Add(new StudySetItem { StudySetID = 0, Title = "None (General Flashcard)" });
@@ -79,14 +79,14 @@ namespace QuizMe_
                     }
                 }
 
-                // --- REPLACE the end of this method with this ---
+                
                 cmbStudySets.DataSource = studySets;
                 cmbStudySets.DisplayMember = "Title";
                 cmbStudySets.ValueMember = "StudySetID";
 
                 if (_preselectedStudySetID.HasValue)
                 {
-                    // Find and select the item that matches the pre-selected ID
+                    
                     StudySetItem itemToSelect = studySets.FirstOrDefault(item => item.StudySetID == _preselectedStudySetID.Value);
                     if (itemToSelect != null)
                     {
@@ -95,10 +95,10 @@ namespace QuizMe_
                 }
                 else
                 {
-                    // Default to "None"
+                    
                     cmbStudySets.SelectedIndex = 0;
                 }
-                // --- END of replacement ---
+                
             }
             catch (Exception ex)
             {
@@ -112,13 +112,12 @@ namespace QuizMe_
             Flashcards flashcards;
             if (_preselectedStudySetID.HasValue)
             {
-                // --- NEW ---
-                // Go back to the specific study set we were in
+                
                 flashcards = new Flashcards(_preselectedStudySetID.Value);
             }
             else
             {
-                // This is the normal behavior
+               
                 flashcards = new Flashcards();
             }
 
@@ -126,7 +125,7 @@ namespace QuizMe_
             flashcards.Show();
         }
 
-        // --- FIX #2 IS IN THIS METHOD ---
+       
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtQuestion.Text) || string.IsNullOrWhiteSpace(txtAnswer.Text))
@@ -146,32 +145,30 @@ namespace QuizMe_
                     cmd.Parameters.AddWithValue("@question", txtQuestion.Text);
                     cmd.Parameters.AddWithValue("@answer", txtAnswer.Text);
 
-                    // --- THIS IS THE FIX ---
-                    // Check if the schedule checkbox is checked
+                    
                     if (chkEnableSchedule.Checked)
                     {
-                        // If yes, save the date from the DateTimePicker
+                        
                         cmd.Parameters.AddWithValue("@schedule_date", dtpScheduleDate.Value);
                     }
                     else
                     {
-                        // If no, save NULL to the database
+                       
                         cmd.Parameters.AddWithValue("@schedule_date", DBNull.Value);
                     }
-                    // --- END OF FIX ---
+              
 
 
                     StudySetItem selectedSet = (StudySetItem)cmbStudySets.SelectedItem;
 
-                    // --- THIS IS THE FIX ---
-                    // We check if selectedSet is null BEFORE we use it
+                    
                     if (selectedSet == null)
                     {
                         MessageBox.Show("Error: No study set was selected. Please try again.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        con.Close(); // Close connection before returning
-                        return; // Stop the method
+                        con.Close(); 
+                        return; 
                     }
-                    // --- END OF FIX ---
+                   
 
                     if (selectedSet.StudySetID == 0)
                     {
@@ -191,8 +188,7 @@ namespace QuizMe_
                 txtAnswer.Clear();
                 dtpScheduleDate.Value = DateTime.Now;
 
-                // --- FIX ---
-                // Also reset your new checkbox
+                
                 chkEnableSchedule.Checked = false;
 
                 cmbStudySets.SelectedIndex = 0;

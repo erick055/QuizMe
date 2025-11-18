@@ -35,7 +35,7 @@ namespace QuizMe_
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    // This query assumes your table is 'Glossary' and columns are 'Terminology' and 'Definition'
+                    
                     string query = "SELECT Terminology, Definition FROM Glossary";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
 
@@ -47,7 +47,7 @@ namespace QuizMe_
 
                     dgvGlossary.DataSource = bindingSource;
 
-                    // Configure DataGridView columns
+                    
                     if (dgvGlossary.Columns["Terminology"] != null)
                     {
                         dgvGlossary.Columns["Terminology"].Width = 250;
@@ -178,7 +178,7 @@ namespace QuizMe_
             string newTerm = txtNewTerm.Text.Trim();
             string newDefinition = txtNewDefinition.Text.Trim();
 
-            // 1. Validation
+            
             if (string.IsNullOrWhiteSpace(newTerm) || string.IsNullOrWhiteSpace(newDefinition))
             {
                 MessageBox.Show("Please enter both a terminology and a definition.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -195,7 +195,7 @@ namespace QuizMe_
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        // 2. Use Parameters to prevent SQL Injection
+                        
                         cmd.Parameters.AddWithValue("@Terminology", newTerm);
                         cmd.Parameters.AddWithValue("@Definition", newDefinition);
 
@@ -203,11 +203,10 @@ namespace QuizMe_
                     }
                 }
 
-                // 3. Add the new row directly to the in-memory DataTable
-                // This updates the grid instantly without a full database reload!
+               
                 glossaryTable.Rows.Add(newTerm, newDefinition);
 
-                // 4. Clear the text boxes
+                
                 txtNewTerm.Clear();
                 txtNewDefinition.Clear();
 
@@ -215,25 +214,24 @@ namespace QuizMe_
             }
             catch (Exception ex)
             {
-                // Handle potential errors (e.g., duplicate term)
+                
                 MessageBox.Show("Error saving new terminology: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnDeleteTerm_Click(object sender, EventArgs e)
         {
-            // 1. Check if a row is selected in the grid
+            
             if (dgvGlossary.CurrentRow == null)
             {
                 MessageBox.Show("Please use the search to find a term and select it from the grid first.", "No Term Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Get the terminology from the selected row
-            // We use "Terminology" because that's the column name in your query
+            
             string termToDelete = dgvGlossary.CurrentRow.Cells["Terminology"].Value.ToString();
 
-            // 3. Confirm the deletion
+            
             DialogResult confirmation = MessageBox.Show(
                 $"Are you sure you want to permanently delete the term '{termToDelete}'?",
                 "Confirm Deletion",
@@ -242,16 +240,16 @@ namespace QuizMe_
 
             if (confirmation != DialogResult.Yes)
             {
-                return; // User clicked 'No'
+                return; 
             }
 
-            // 4. Delete from the database
+            
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
-                    // Use the Terminology as the key to delete
+                    
                     string query = "DELETE FROM Glossary WHERE Terminology = @Terminology";
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
@@ -261,8 +259,7 @@ namespace QuizMe_
 
                         if (rowsAffected > 0)
                         {
-                            // 5. Remove from the UI instantly
-                            // This removes the row from the DataTable, which updates the grid
+                            
                             DataRowView rowView = (DataRowView)dgvGlossary.CurrentRow.DataBoundItem;
                             rowView.Row.Delete();
 

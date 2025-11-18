@@ -10,15 +10,15 @@ namespace QuizMe_
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
         private int _quizID;
 
-        // This list will hold all the questions from the DB
+        
         private List<QuizQuestion> allQuestions = new List<QuizQuestion>();
 
-        // This list will store the user's selected answers (e.g., "A", "C", "B")
+       
         private List<string> userAnswers = new List<string>();
 
         private int currentQuestionIndex = 0;
 
-        // A helper class to store one question
+
         private class QuizQuestion
         {
             public string QuestionText { get; set; }
@@ -26,7 +26,7 @@ namespace QuizMe_
             public string OptionB { get; set; }
             public string OptionC { get; set; }
             public string OptionD { get; set; }
-            public string CorrectAnswer { get; set; } // "A", "B", "C", or "D"
+            public string CorrectAnswer { get; set; } 
         }
 
         public QuizTakerForm(int quizID)
@@ -49,7 +49,7 @@ namespace QuizMe_
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
                         cmd.Parameters.AddWithValue("@QuizID", _quizID);
-                        cmd.Parameters.AddWithValue("@UserID", QuizMe_.SignIn.staticUserID); // Using the static user ID
+                        cmd.Parameters.AddWithValue("@UserID", QuizMe_.SignIn.staticUserID); 
                         cmd.Parameters.AddWithValue("@Score", score);
                         cmd.Parameters.AddWithValue("@TotalQuestions", totalQuestions);
                         cmd.Parameters.AddWithValue("@DateTaken", DateTime.Now);
@@ -60,8 +60,7 @@ namespace QuizMe_
             }
             catch (Exception ex)
             {
-                // It's good to log this, but maybe don't bother the user
-                // MessageBox.Show("Could not save score: " + ex.Message); 
+                
                 Console.WriteLine("Error saving score: " + ex.Message);
             }
         }
@@ -126,13 +125,12 @@ namespace QuizMe_
                 rbOptionC.Text = q.OptionC;
                 rbOptionD.Text = q.OptionD;
 
-                // Clear any previous selection
+             
                 rbOptionA.Checked = false;
                 rbOptionB.Checked = false;
                 rbOptionC.Checked = false;
                 rbOptionD.Checked = false;
 
-                // Change button text on the last question
                 if (currentQuestionIndex == allQuestions.Count - 1)
                 {
                     btnNext.Text = "Finish";
@@ -142,7 +140,7 @@ namespace QuizMe_
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            // 1. Record the user's answer
+           
             string selectedAnswer = "";
             if (rbOptionA.Checked) selectedAnswer = "A";
             else if (rbOptionB.Checked) selectedAnswer = "B";
@@ -156,17 +154,17 @@ namespace QuizMe_
             }
             userAnswers.Add(selectedAnswer);
 
-            // 2. Move to the next question
+          
             currentQuestionIndex++;
 
             if (currentQuestionIndex < allQuestions.Count)
             {
-                // If there are more questions, display the next one
+ 
                 DisplayCurrentQuestion();
             }
             else
             {
-                // If that was the last question, grade the quiz
+  
                 CalculateAndShowScore();
             }
         }
@@ -189,7 +187,7 @@ namespace QuizMe_
             MessageBox.Show($"Quiz Complete!\n\nYou scored: {score} out of {allQuestions.Count} ({percentage:F0}%)",
                 "Quiz Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            this.Close(); // Close the quiz form
+            this.Close(); 
         }
     }
 }

@@ -16,7 +16,6 @@ namespace QuizMe_
     {
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
 
-        // This will hold the PDF data
         private byte[] pdfData;
         private string selectedFileName;
 
@@ -64,7 +63,7 @@ namespace QuizMe_
                 return;
             }
 
-            // --- Save to Database ---
+      
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -72,7 +71,7 @@ namespace QuizMe_
                     string query = "INSERT INTO StudySets (UserID, Title, Subject, PdfData, Progress) VALUES (@UserID, @Title, @Subject, @PdfData, 0)";
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        // Use the static user ID from your SignIn class
+                        
                         cmd.Parameters.AddWithValue("@UserID", QuizMe_.SignIn.staticUserID);
                         cmd.Parameters.AddWithValue("@Title", txtTitle.Text);
                         cmd.Parameters.AddWithValue("@Subject", txtSubject.Text);
@@ -83,8 +82,8 @@ namespace QuizMe_
                     }
                 }
 
-                IsUploadSuccessful = true; // Set flag
-                this.Close(); // Close this form
+                IsUploadSuccessful = true; 
+                this.Close(); 
             }
             catch (Exception ex)
             {

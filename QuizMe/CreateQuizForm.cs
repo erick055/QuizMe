@@ -1,31 +1,31 @@
 ﻿using System;
-using System.Data.SqlClient; // Required for database operations
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace QuizMe_
 {
     public partial class CreateQuizForm : Form
     {
-        // Connection string (use your existing one)
+       
         private readonly string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=QuizMeDB;Trusted_Connection=True;";
 
-        // Property to indicate if a quiz was successfully created
+        
         public bool QuizCreatedSuccessfully { get; private set; } = false;
-        public int NewQuizID { get; private set; } // To store the ID of the newly created quiz
+        public int NewQuizID { get; private set; } 
 
         public CreateQuizForm()
         {
             InitializeComponent();
         }
 
-        // This was an empty method, so I removed its contents
+       
         private void btnSaveQuiz_Click(object sender, EventArgs e)
         {
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close(); // Simply close the form
+            this.Close(); 
         }
 
         private void btnSaveQuiz_Click_1(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace QuizMe_
                 {
                     con.Open();
 
-                    // This query is correct
+                    
                     string query = @"INSERT INTO Quizzes (UserID, Title, Description, CreatedDate, ScheduledDate) 
                                      VALUES (@UserID, @Title, @Description, @CreatedDate, @ScheduledDate)";
 
@@ -56,19 +56,18 @@ namespace QuizMe_
                         cmd.Parameters.AddWithValue("@Description", description);
                         cmd.Parameters.AddWithValue("@CreatedDate", DateTime.Now);
 
-                        // --- THIS IS THE FIX ---
-                        // Check if the schedule checkbox is checked
+                        
                         if (chkEnableSchedule.Checked)
                         {
-                            // If yes, save the date from the DateTimePicker
+                            
                             cmd.Parameters.AddWithValue("@ScheduledDate", dtpScheduledDate.Value);
                         }
                         else
                         {
-                            // If no, save NULL to the database
+                            
                             cmd.Parameters.AddWithValue("@ScheduledDate", DBNull.Value);
                         }
-                        // --- END OF FIX ---
+                    
 
                         cmd.ExecuteNonQuery();
                         QuizCreatedSuccessfully = true;
@@ -79,21 +78,21 @@ namespace QuizMe_
             }
             catch (Exception ex)
             {
-                QuizCreatedSuccessfully = false; // Make sure we set this to false on error
+                QuizCreatedSuccessfully = false; 
                 MessageBox.Show("Error creating quiz: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // This was an empty method, so I removed its contents
+     
         private void CreateQuizForm_Load(object sender, EventArgs e)
         {
-            // Start with the checkbox unchecked
+            
             chkEnableSchedule.Checked = false;
-            // And the DateTimePicker disabled
+
             dtpScheduledDate.Enabled = false;
         }
 
-        // This was an empty method, so I removed its contents
+  
         private void chkEnableSchedule_CheckedChanged(object sender, EventArgs e)
         {
             dtpScheduledDate.Enabled = chkEnableSchedule.Checked;
